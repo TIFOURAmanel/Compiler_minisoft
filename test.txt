@@ -1,0 +1,41 @@
+MainPrgm fgjh7_t ;
+Var
+@define Const j : int = 12 ;
+let a , b : int ;
+let ft_y : [float ; 10] ;  
+BeginPg
+{
+a := (-5) ;
+a := a + c * 7 ;
+B [5] := (H+ 2) / (5 - b +(-3)) ;
+if (a OR b AND 2 + 4) then {
+ a := 7 ;
+}else {
+
+} 
+if (Aa + 2 > Bb) then
+{
+H := J - 5.5 ;
+} else {
+H := H-1 ;
+}
+do {
+x:=x+1;
+} while (x<100);
+for i from 1 to 10 step 2 {
+Ka := Hj * i;
+}
+if (Aa +2 > Bb) then
+{
+  for i from 1 to 10 step 2 {
+Ka := Hj * i;
+}  
+}
+input(Username) ;
+input(a ,b, v) ;
+output("Vous avez saisi: ",
+Userame) ;
+output("Vous avez saisi: ") ;
+output("Vous avez saisi: ",Userame , hh) ;
+}
+EndPg ;
