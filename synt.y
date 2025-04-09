@@ -1,13 +1,22 @@
 %{#include<stdio.h>
 #include "synt.tab.h"  
+#include <string.h>
 extern int num_de_lignes;
 extern int col;
 extern char *yytext; 
+char tabl_inter [100][20];
+int cpt= 0;
+char sauvtype [20];
 
 
 %}
+%union {
+int entier;
+char* str;
+float reel;
+}
 
-%token MainPrgm idf pnt_virgul var BeginPg accolade_ouvr accolade_ferm EndPg let deux_pnts constante egal virgul reel entier entier_pos corechet_ouvr corechet_ferm entier_neg reel_pos reel_neg affect chaine if_cond then parenthese_ferm parenthese_ouvr lire output add soustract division multipl inf sup inf_ou_egal sup_ou_egal neg and or diff boucle_for from to step boucle_do boucle_while else_cond identiq  
+%token MainPrgm <str>idf pnt_virgul var BeginPg accolade_ouvr accolade_ferm EndPg let deux_pnts constante egal virgul <str>reel <str>entier <entier>entier_pos corechet_ouvr corechet_ferm <entier>entier_neg <reel>reel_pos <reel>reel_neg affect <str>chaine if_cond then parenthese_ferm parenthese_ouvr lire output add soustract division multipl inf sup inf_ou_egal sup_ou_egal neg and or diff boucle_for from to step boucle_do boucle_while else_cond identiq  
 
 %start DEBUT
 
@@ -28,27 +37,45 @@ DEBUT : MainPrgm idf pnt_virgul
          DECLARATION_LIST 
          BeginPg accolade_ouvr 
          INSTRUCTIONS 
-         accolade_ferm EndPg pnt_virgul {printf("correcte syntaxiquement");};
+         accolade_ferm EndPg pnt_virgul {printf("correcte syntaxiquement"); YYACCEPT ;};
 
 DECLARATION_LIST :
-    |DECLARATION_LIST DECLARATION
-    | DECLARATION
-    ;
+      |let VARIABLE deux_pnts TYPE1 pnt_virgul DECLARATION_LIST 
+       
 
-DECLARATION :
-      let VARIABLE deux_pnts TYPE1 pnt_virgul 
-      | let idf deux_pnts TYPE2 pnt_virgul 
-      | constante idf deux_pnts TYPE1 egal VALEUR pnt_virgul ;
+      | constante idf deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST  ;
 
 VALEUR: entier_pos | entier_neg | reel_pos | reel_neg  ;
 
-VARIABLE: idf virgul VARIABLE | idf ;
+VARIABLE: idf virgul VARIABLE { strcpy(tabl_inter[cpt], $1); cpt ++;}| idf { strcpy(tabl_inter[cpt], $1); cpt ++;} ;
 
-TYPE1 : reel | entier ;
+TYPE1 : reel {strcpy(sauvtype , $1) ; int i ;
+        for (i = 0 ; i<cpt; i ++ ){
+          if (rechercheType(tabl_inter[i],0)==0){
+          insererType(tabl_inter[i],sauvtype , 0);
+          }else{
+            printf("erreur semantique double declaration de : %s a la ligne %d",tabl_inter[i],num_de_lignes);
+          }
+        }
+        cpt =0 ; } | entier {strcpy(sauvtype , $1) ; int i ;
+        for (i = 0 ; i<cpt; i ++ ){
+          if (rechercheType(tabl_inter[i],0)==0){
+          insererType(tabl_inter[i],sauvtype , 0);
+          }else{
+            printf("erreur semantique double declaration de : %s a la ligne %d",tabl_inter[i],num_de_lignes);
+          }
+        }
+        cpt =0 ; } | corechet_ouvr TYPE1 pnt_virgul entier_pos corechet_ferm ;
 
-TYPE2 : corechet_ouvr TYPE1 pnt_virgul entier_pos corechet_ferm ;
 
-INSTRUCTIONS :  | idf AFFECTATION_NOR INSTRUCTIONS | idf AFFECTATION_TAB INSTRUCTIONS | INPUT INSTRUCTIONS | OUTPUT INSTRUCTIONS | CONDITION INSTRUCTIONS | LOOP_DO INSTRUCTIONS | LOOP_FOR INSTRUCTIONS ;
+
+INSTRUCTIONS :  | idf AFFECTATION_NOR INSTRUCTIONS { if (rechercheType($1,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
+} }
+| idf AFFECTATION_TAB INSTRUCTIONS { if (rechercheType($1,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
+} }
+| INPUT INSTRUCTIONS | OUTPUT INSTRUCTIONS | CONDITION INSTRUCTIONS | LOOP_DO INSTRUCTIONS | LOOP_FOR INSTRUCTIONS ;
 
 AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR ;
 
@@ -72,17 +99,30 @@ EXPRESSION_UNARY :
 
 EXPRESSION_ATOM :
       parenthese_ouvr EXPRESSION parenthese_ferm  
-    | idf 
+    | idf { if (rechercheType($1,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
+  
+} }
     | VALEUR ;
 
 
-INPUT : lire parenthese_ouvr idf REPETITION parenthese_ferm pnt_virgul ;
+INPUT : lire parenthese_ouvr idf REPETITION parenthese_ferm pnt_virgul  { if (rechercheType($3,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$3,num_de_lignes);
+} };
 
-REPETITION : | virgul idf REPETITION ;
+REPETITION : | virgul idf REPETITION { if (rechercheType($2,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$2,num_de_lignes);
+} } ;
 
 OUTPUT : output parenthese_ouvr DANS_OUTPUT parenthese_ferm pnt_virgul ;
 
-DANS_OUTPUT: chaine | idf | chaine virgul DANS_OUTPUT | idf virgul DANS_OUTPUT ;
+DANS_OUTPUT: chaine | idf { if (rechercheType($1,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
+} }
+| chaine virgul DANS_OUTPUT | 
+idf virgul DANS_OUTPUT { if (rechercheType($1,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
+} };
 
 CONDITION : if_cond parenthese_ouvr EXPRESSION_COND parenthese_ferm then accolade_ouvr INSTRUCTIONS accolade_ferm SINON ; 
 
@@ -110,6 +150,7 @@ LOOP_FOR : boucle_for idf from entier_pos to entier_pos step entier_pos accolade
 int main() {
     
     yyparse();
+    afficher();
 }
 yywrap()
 {return 1;}
