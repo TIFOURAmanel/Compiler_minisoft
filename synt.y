@@ -43,7 +43,7 @@ DECLARATION_LIST :
       |let VARIABLE deux_pnts TYPE1 pnt_virgul DECLARATION_LIST 
        
 
-      | constante idf deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST {insererVal($2 , $6 , 0)} ;
+      | constante VARIABLE deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
 
 VALEUR: entier_pos {$$ = $1} | entier_neg {$$ = $1} | reel_pos {$$ = $1} | reel_neg {$$ = $1} ;
 
