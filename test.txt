@@ -2,7 +2,7 @@ MainPrgm j7 ;
 Var 
 let x : int ;
 let t : float ;
-
+@define Const fffff : int = 10 ;
 let A,B :[int ; 10] ;
 BeginPg
 {

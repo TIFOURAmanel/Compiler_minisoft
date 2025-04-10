@@ -17,7 +17,7 @@ float reel;
 }
 
 %token MainPrgm <str>idf pnt_virgul var BeginPg accolade_ouvr accolade_ferm EndPg let deux_pnts constante egal virgul <str>reel <str>entier <entier>entier_pos corechet_ouvr corechet_ferm <entier>entier_neg <reel>reel_pos <reel>reel_neg affect <str>chaine if_cond then parenthese_ferm parenthese_ouvr lire output add soustract division multipl inf sup inf_ou_egal sup_ou_egal neg and or diff boucle_for from to step boucle_do boucle_while else_cond identiq  
-
+%type <reel> VALEUR 
 %start DEBUT
 
 %nonassoc then
@@ -43,9 +43,9 @@ DECLARATION_LIST :
       |let VARIABLE deux_pnts TYPE1 pnt_virgul DECLARATION_LIST 
        
 
-      | constante idf deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST  ;
+      | constante idf deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST {insererVal($2 , $6 , 0)} ;
 
-VALEUR: entier_pos | entier_neg | reel_pos | reel_neg  ;
+VALEUR: entier_pos {$$ = $1} | entier_neg {$$ = $1} | reel_pos {$$ = $1} | reel_neg {$$ = $1} ;
 
 VARIABLE: idf virgul VARIABLE { strcpy(tabl_inter[cpt], $1); cpt ++;}| idf { strcpy(tabl_inter[cpt], $1); cpt ++;} ;
 
@@ -71,7 +71,8 @@ TYPE1 : reel {strcpy(sauvtype , $1) ; int i ;
 
 INSTRUCTIONS :  | idf AFFECTATION_NOR INSTRUCTIONS { if (rechercheType($1,0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
-} }
+} 
+}
 | idf AFFECTATION_TAB INSTRUCTIONS { if (rechercheType($1,0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
 } }
@@ -79,7 +80,7 @@ INSTRUCTIONS :  | idf AFFECTATION_NOR INSTRUCTIONS { if (rechercheType($1,0)== 0
 
 AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR ;
 
-AFFECTATION_NOR : affect EXPRESSION pnt_virgul ;
+AFFECTATION_NOR : affect EXPRESSION pnt_virgul  ;
 
 EXPRESSION : EXPRESSION_ADD ;
 
