@@ -7,7 +7,9 @@ typedef struct {
     char name[20];
     char code[20];
     char type[20];
-    char  val[20];
+    double val;
+    int estConst ;// si une var est une constante ou pas 
+    int tailletableau; //pour ajouter la taille du tableau si scest un tableau 
 }TS_IDF ;
 
 typedef struct
@@ -23,7 +25,7 @@ TS_MCS TSS[50], TSM[50];
 void initialization(){
     int i;
     // TS des IDF
-    for (i=0;i<200; i++) TIDF[i]. state=0;
+    for (i=0;i<200; i++){ TIDF[i]. state=0; TIDF[i].estConst=0;}
     // TS des Mots clés & Separateurs
     for (i=0;i<50;i++)
     {
@@ -35,17 +37,23 @@ void initialization(){
 void afficher() {
     int i;
 
-    // Afficher la table des symboles IDF
     printf("\n*********Table des symboles IDF*********\n");
     printf("---\n");
-    printf("\t|Nom_Entite | Code_Entite | Type_Entite | Val_Entite \n");
+    printf("\t|Nom_Entite | Code_Entite | Type_Entite | Val_Entite | Constante | TailleTableau\n");
     printf("---\n");
 
     for (i = 0; i < 200; i++) {
         if (TIDF[i].state == 1) {
-            printf("\t|%10s |%15s | %12s | %12s \n", TIDF[i].name, TIDF[i].code, TIDF[i].type, TIDF[i].val);
+            printf("\t|%10s |%12s |%13s |%12f |%9d |%10d\n",
+                   TIDF[i].name,
+                   TIDF[i].code,
+                   TIDF[i].type,
+                   TIDF[i].val,
+                   TIDF[i].estConst,
+                   TIDF[i].tailletableau);
         }
     }
+
 
     // Afficher la table des symboles mots-clés
     printf("\n*********Table des symboles mots clés**********\n");
@@ -118,7 +126,7 @@ int recherche(char entite[], int tableType)
 }
 
 // Function to insert entities into the appropriate table
-void inserer(char entite[], char code[], int tableType)
+void inserer(char entite[], char code[],int tableType)
 {
     // Check if entity already exists
     if (recherche(entite, tableType) == -1) {
@@ -159,13 +167,13 @@ void insererType(char entite[], char type[], int tableType)
 }
 
 // Function to insert/update the value of an entity
-void insererVal(char entite[], char val[], int tableType)
+void insererVal(char entite[], double val, int tableType)
 {
     if (tableType != 0) return; // Only TIDF has val field
     
     int posEntite = recherche(entite, tableType);
     if (posEntite != -1) { // If entity exists in the table
-        strcpy(TIDF[posEntite].val, val);
+        TIDF[posEntite].val= val;
     }
 }
 
@@ -182,3 +190,24 @@ int rechercheType(char entite[], int tableType)
     else 
         return 1; // Entity exists and has a type
 }
+void insererTailleTableau(char entite[], int taille) {
+    int posEntite = recherche(entite, 0); // 0 pour TIDF
+    if (posEntite != -1) {
+        TIDF[posEntite].tailletableau = taille;
+    }
+}
+int estConstante(char entite[]) {
+    int pos = recherche(entite, 0); // tableType = 0 pour TIDF
+    if (pos != -1) {
+        return TIDF[pos].estConst;
+    }
+    return -1; // identificateur non trouvé
+}
+void insererConstante(char entite[], int estConstante) {
+    int posEntite = recherche(entite, 0); // 0 pour TIDF
+    if (posEntite != -1) {
+        TIDF[posEntite].estConst= estConstante;
+    }
+}
+
+

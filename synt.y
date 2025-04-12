@@ -5,8 +5,11 @@ extern int num_de_lignes;
 extern int col;
 extern char *yytext; 
 char tabl_inter [100][20];
+char tabl_inter2 [100][20];
 int cpt= 0;
+int cpt2= 0;
 char sauvtype [20];
+double sauvval; 
 
 
 %}
@@ -43,11 +46,41 @@ DECLARATION_LIST :
       |let VARIABLE deux_pnts TYPE1 pnt_virgul DECLARATION_LIST 
        
 
-      | constante VARIABLE deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
+      | constante VARIABLEConst deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
+VARIABLEConst : idf virgul VARIABLE {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;}| idf {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;} ;
 
-VALEUR: entier_pos {$$ = $1} | entier_neg {$$ = $1} | reel_pos {$$ = $1} | reel_neg {$$ = $1} ;
 
-VARIABLE: idf virgul VARIABLE { strcpy(tabl_inter[cpt], $1); cpt ++;}| idf { strcpy(tabl_inter[cpt], $1); cpt ++;} ;
+VALEUR: entier_pos {
+  sauvval= $1; int i ;
+        for (i = 0 ; i<cpt2; i ++ ){
+          
+          insererVal(tabl_inter2[i],sauvval , 0);
+          
+        }
+        cpt2 =0 ; }  | entier_neg {
+  sauvval= $1; int i ;
+        for (i = 0 ; i<cpt2; i ++ ){
+         
+          insererVal(tabl_inter2[i],sauvval , 0);
+         
+        }
+        cpt2 =0 ; }  | reel_pos {
+  sauvval= $1; int i ;
+        for (i = 0 ; i<cpt2; i ++ ){
+          
+          insererVal(tabl_inter2[i],sauvval , 0);
+          
+        }
+        cpt2 =0 ; }   | reel_neg{
+  sauvval= $1; int i ;
+        for (i = 0 ; i<cpt2; i ++ ){
+          
+          insererVal(tabl_inter2[i],sauvval , 0);
+        
+        }
+        cpt2 =0 ; }   ;
+
+VARIABLE: idf virgul VARIABLE { strcpy(tabl_inter[cpt], $1); cpt ++; }| idf { strcpy(tabl_inter[cpt], $1); cpt ++;  } ;
 
 TYPE1 : reel {strcpy(sauvtype , $1) ; int i ;
         for (i = 0 ; i<cpt; i ++ ){
@@ -104,7 +137,9 @@ EXPRESSION_ATOM :
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
   
 } }
-    | VALEUR ;
+    | VALEUR2 ;
+
+VALEUR2 : entier_pos | entier_neg | reel_pos | reel_neg ;
 
 
 INPUT : lire parenthese_ouvr idf REPETITION parenthese_ferm pnt_virgul  { if (rechercheType($3,0)== 0){
