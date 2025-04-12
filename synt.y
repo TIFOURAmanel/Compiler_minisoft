@@ -10,7 +10,7 @@ int cpt= 0;
 int cpt2= 0;
 char sauvtype [20];
 double sauvval; 
-
+int indicetab; 
 
 %}
 %union {
@@ -90,7 +90,8 @@ TYPE1 : reel {strcpy(sauvtype , $1) ; int i ;
             printf("erreur semantique double declaration de : %s a la ligne %d",tabl_inter[i],num_de_lignes);
           }
         }
-        cpt =0 ; } | entier {strcpy(sauvtype , $1) ; int i ;
+         cpt=0;} 
+        | entier {strcpy(sauvtype , $1) ; int i ;
         for (i = 0 ; i<cpt; i ++ ){
           if (rechercheType(tabl_inter[i],0)==0){
           insererType(tabl_inter[i],sauvtype , 0);
@@ -98,7 +99,16 @@ TYPE1 : reel {strcpy(sauvtype , $1) ; int i ;
             printf("erreur semantique double declaration de : %s a la ligne %d",tabl_inter[i],num_de_lignes);
           }
         }
-        cpt =0 ; } | corechet_ouvr TYPE1 pnt_virgul entier_pos corechet_ferm ;
+        cpt=0; } 
+        | corechet_ouvr TYPE1 pnt_virgul entier_pos corechet_ferm  { int i ;
+        for (i = 0 ; i<cpt; i ++ ){
+          if (recherche(tabl_inter[i],0)!=-1){
+          insererTailleTableau(tabl_inter[i], $4);
+          }else{
+            printf("erreur idf non trouver\n");
+          }
+        }
+        cpt =0 ; } ;
 
 
 
@@ -108,10 +118,13 @@ INSTRUCTIONS :  | idf AFFECTATION_NOR INSTRUCTIONS { if (rechercheType($1,0)== 0
 }
 | idf AFFECTATION_TAB INSTRUCTIONS { if (rechercheType($1,0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
+  if ( recherchertailleTableau ($1)< indicetab){
+    printf("depasement de taille du tableau de %s",$1);
+  }
 } }
 | INPUT INSTRUCTIONS | OUTPUT INSTRUCTIONS | CONDITION INSTRUCTIONS | LOOP_DO INSTRUCTIONS | LOOP_FOR INSTRUCTIONS ;
 
-AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR ;
+AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR {indicetab= $2};
 
 AFFECTATION_NOR : affect EXPRESSION pnt_virgul  ;
 

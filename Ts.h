@@ -209,5 +209,10 @@ void insererConstante(char entite[], int estConstante) {
         TIDF[posEntite].estConst= estConstante;
     }
 }
-
+int recherchertailleTableau (char entite[]){
+    int posEntite = recherche(entite, 0); // 0 pour TIDF
+    if (posEntite != -1) {
+        return TIDF[posEntite].tailletableau;
+    }
+}
 
