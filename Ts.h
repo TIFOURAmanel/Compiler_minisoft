@@ -219,9 +219,23 @@ int recherchertailleTableau (char entite[]){
 
 int rechercherval (char entite[]){
     int posEntite = recherche(entite, 0); // 0 pour TIDF
-    if (posEntite != -1) {printf ("ffffffffffffffffffff %f" ,TIDF[posEntite].val );
-        afficher();
+    if (posEntite != -1) {
         return TIDF[posEntite].val;
         
     }
+}
+
+char* recherchertype (char entite[]){
+    int posEntite = recherche(entite, 0); // 0 pour TIDF
+    if (posEntite != -1) {
+       return TIDF[posEntite].type;
+    }
+}
+
+ char* checkNumberType(double num) {
+    if((num == (long long)num)) {
+    return  "int";
+} else {
+    return "float" ;
+}
 }

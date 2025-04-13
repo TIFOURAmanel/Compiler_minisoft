@@ -511,11 +511,11 @@ static const yytype_uint8 yyrline[] =
 {
        0,    44,    44,    51,    52,    55,    56,    56,    59,    66,
       73,    80,    89,    89,    91,   100,   109,   119,   121,   121,
-     126,   134,   134,   134,   134,   134,   136,   138,   141,   142,
-     143,   144,   145,   146,   147,   152,   157,   157,   157,   157,
-     160,   164,   164,   168,   170,   170,   173,   174,   178,   180,
-     180,   184,   185,   186,   187,   188,   189,   192,   192,   192,
-     192,   192,   192,   194,   196
+     126,   134,   134,   134,   134,   134,   136,   138,   143,   144,
+     145,   147,   148,   151,   152,   157,   162,   162,   162,   162,
+     165,   169,   169,   173,   175,   175,   178,   179,   183,   185,
+     185,   188,   189,   190,   191,   192,   193,   196,   196,   196,
+     196,   196,   196,   198,   200
 };
 #endif
 
@@ -1699,55 +1699,60 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 138 "synt.y"
-    {  insererVal (sauv, (yyvsp[(2) - (3)].reel) , 0) ; (yyval.reel) = (yyvsp[(2) - (3)].reel) ;;}
+    {
+   if (strcmp(recherchertype(sauv), checkNumberType((yyvsp[(2) - (3)].reel))) != 0   ) { printf (" erreur semantique non compatibilite de type a la ligne %d \n", num_de_lignes) ;}
+   insererVal (sauv, (yyvsp[(2) - (3)].reel) , 0) ; (yyval.reel) = (yyvsp[(2) - (3)].reel) ;;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 141 "synt.y"
+#line 143 "synt.y"
     { (yyval.reel) = (yyvsp[(2) - (3)].reel) ;;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 142 "synt.y"
+#line 144 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (3)].reel) + (yyvsp[(3) - (3)].reel) ; ;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 143 "synt.y"
-    { (yyval.reel) = (yyvsp[(1) - (3)].reel) - (yyvsp[(3) - (3)].reel) ; if ((yyvsp[(3) - (3)].reel) == 0) {printf("erreur semantique division par zero ");};}
+#line 145 "synt.y"
+    { 
+(yyval.reel) = (yyvsp[(1) - (3)].reel) - (yyvsp[(3) - (3)].reel) ; ;;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 144 "synt.y"
+#line 147 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (3)].reel) * (yyvsp[(3) - (3)].reel) ;;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 145 "synt.y"
-    { (yyval.reel) = (yyvsp[(1) - (3)].reel) / (yyvsp[(3) - (3)].reel) ;;}
+#line 148 "synt.y"
+    {
+   if ((yyvsp[(3) - (3)].reel) == 0) {printf("erreur semantique division par zero a la ligne %d \n", num_de_lignes);}
+ (yyval.reel) = (yyvsp[(1) - (3)].reel) / (yyvsp[(3) - (3)].reel) ;;}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 146 "synt.y"
+#line 151 "synt.y"
     { (yyval.reel) = -(yyvsp[(2) - (2)].reel) ;;}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 147 "synt.y"
+#line 152 "synt.y"
     { 
   (yyval.reel) = rechercherval((yyvsp[(1) - (1)].str));
   if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
@@ -1759,42 +1764,42 @@ yyreduce:
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 152 "synt.y"
-    { insererVal (sauv, (yyvsp[(1) - (1)].reel) , 0) ; (yyval.reel) = (yyvsp[(1) - (1)].reel) ;;}
+#line 157 "synt.y"
+    {  (yyval.reel) = (yyvsp[(1) - (1)].reel) ;;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 157 "synt.y"
+#line 162 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].entier) ;;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 157 "synt.y"
+#line 162 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].entier) ;;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 157 "synt.y"
+#line 162 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].reel) ;;}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 157 "synt.y"
+#line 162 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].reel) ;;}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 160 "synt.y"
+#line 165 "synt.y"
     { if (rechercheType((yyvsp[(3) - (6)].str),0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",(yyvsp[(3) - (6)].str),num_de_lignes);
 } ;}
@@ -1803,7 +1808,7 @@ yyreduce:
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 164 "synt.y"
+#line 169 "synt.y"
     { if (rechercheType((yyvsp[(2) - (3)].str),0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",(yyvsp[(2) - (3)].str),num_de_lignes);
 } ;}
@@ -1812,7 +1817,7 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 170 "synt.y"
+#line 175 "synt.y"
     { if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",(yyvsp[(1) - (1)].str),num_de_lignes);
 } ;}
@@ -1821,7 +1826,7 @@ yyreduce:
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 174 "synt.y"
+#line 179 "synt.y"
     { if (rechercheType((yyvsp[(1) - (3)].str),0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",(yyvsp[(1) - (3)].str),num_de_lignes);
 } ;}
@@ -1830,7 +1835,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 1834 "synt.tab.c"
+#line 1839 "synt.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2042,7 +2047,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 200 "synt.y"
+#line 204 "synt.y"
 
 int main() {
     

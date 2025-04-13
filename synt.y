@@ -135,21 +135,26 @@ INSTRUCTIONS :  | IDFS AFFECTATION_NOR INSTRUCTIONS {  if (rechercheType($1,0)==
 
 AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR {indicetab= $2 ; $$= $4 ; };
 
-AFFECTATION_NOR : affect EXPRESSION_ADD pnt_virgul {  insererVal (sauv, $2 , 0) ; $$ = $2 ;} ;
+AFFECTATION_NOR : affect EXPRESSION_ADD pnt_virgul {
+   if (strcmp(recherchertype(sauv), checkNumberType($2)) != 0   ) { printf (" erreur semantique non compatibilite de type a la ligne %d \n", num_de_lignes) ;}
+   insererVal (sauv, $2 , 0) ; $$ = $2 ;} ;
 
 
 EXPRESSION_ADD :  parenthese_ouvr EXPRESSION_ADD parenthese_ferm { $$ = $2 ;}
 | EXPRESSION_ADD  add EXPRESSION_ADD { $$ = $1 + $3 ; }
-| EXPRESSION_ADD soustract EXPRESSION_ADD { $$ = $1 - $3 ; if ($3 == 0) {printf("erreur semantique division par zero ");}}
+| EXPRESSION_ADD soustract EXPRESSION_ADD { 
+$$ = $1 - $3 ; ;}
 | EXPRESSION_ADD multipl EXPRESSION_ADD { $$ = $1 * $3 ;}
-| EXPRESSION_ADD division EXPRESSION_ADD  { $$ = $1 / $3 ;}
+| EXPRESSION_ADD division EXPRESSION_ADD  {
+   if ($3 == 0) {printf("erreur semantique division par zero a la ligne %d \n", num_de_lignes);}
+ $$ = $1 / $3 ;}
 | neg EXPRESSION_ADD { $$ = -$2 ;}
 | idf { 
   $$ = rechercherval($1);
   if (rechercheType($1,0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
   
-} } | VALEUR2 { insererVal (sauv, $1 , 0) ; $$ = $1 ;} ;
+} } | VALEUR2 {  $$ = $1 ;} ;
 
 
      
@@ -180,8 +185,7 @@ CONDITION : if_cond parenthese_ouvr EXPRESSION_COND parenthese_ferm then accolad
 SINON : else_cond accolade_ouvr INSTRUCTIONS accolade_ferm |  ;
 
   
-EXPRESSION_COND
-  : EXPRESSION_COND and EXPRESSION_COND
+EXPRESSION_COND: EXPRESSION_COND and EXPRESSION_COND
   | EXPRESSION_COND or EXPRESSION_COND
   | neg EXPRESSION_COND
   | parenthese_ouvr EXPRESSION_COND parenthese_ferm

@@ -6,9 +6,9 @@ let H : float ;
 @define Const fffff : int = 10 ;
 let A,B :[int ; 10] ;
 BeginPg
-{x := 4 ;
+{x := 4.66 ;
 t := x + 2 ;
 A [0] := 5 ;
 H := 5 + 2 * t ;
-x := 5/0 ;}
+x := H/0 ;}
 EndPg ;
