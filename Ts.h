@@ -173,7 +173,7 @@ void insererVal(char entite[], double val, int tableType)
     
     int posEntite = recherche(entite, tableType);
     if (posEntite != -1) { // If entity exists in the table
-        TIDF[posEntite].val= val;
+        TIDF[posEntite].val= (double)val;
     }
 }
 
@@ -209,6 +209,7 @@ void insererConstante(char entite[], int estConstante) {
         TIDF[posEntite].estConst= estConstante;
     }
 }
+
 int recherchertailleTableau (char entite[]){
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
@@ -216,3 +217,11 @@ int recherchertailleTableau (char entite[]){
     }
 }
 
+int rechercherval (char entite[]){
+    int posEntite = recherche(entite, 0); // 0 pour TIDF
+    if (posEntite != -1) {printf ("ffffffffffffffffffff %f" ,TIDF[posEntite].val );
+        afficher();
+        return TIDF[posEntite].val;
+        
+    }
+}
