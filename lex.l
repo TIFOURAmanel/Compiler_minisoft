@@ -91,9 +91,9 @@ output {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cl
         int valeur= atoi(varstr);
             if (valeur >= -32768 && valeur <= 32767) {
         if (valeur < 0) {
-            printf("entier signe negatif \n"); yylval.entier=atoi(yytext);  return entier_neg ;
+            printf("entier signe negatif \n"); yylval.entier=valeur;  return entier_neg ;
         } else {
-            printf("entier  signe positif \n"); yylval.entier=atoi(yytext); return entier_neg ;
+            printf("entier  signe positif \n"); yylval.entier=valeur; return entier_neg ;
         }
     } else {
         printf("erreur : le nombre n'est pas dans la plage des valeurs\n");
@@ -109,9 +109,9 @@ output {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cl
         double valeur = strtod(varstr, NULL);
 
         if (valeur < 0) {
-            printf("reel signe negatif\n"); yylval.reel=atof(yytext); return reel_neg ; 
+            printf("reel signe negatif\n"); yylval.reel=valeur; return reel_neg ; 
         } else {
-            printf("reel signe positif \n"); yylval.reel=atof(yytext); return reel_pos ;
+            printf("reel signe positif \n"); yylval.reel=valeur ; return reel_pos ;
         }
 }
 

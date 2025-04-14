@@ -1,0 +1,50 @@
+MainPrgm Minisoft ;
+
+Var 
+let x : int ;
+let y : float ;
+let z : int ;
+let u : int ;
+let Username : float ;
+let i : int ;
+@define Const a ,b  : int = 10 ;
+@define Const c : float = 6.8 ;
+let A,B :[int ; 10] ;
+
+BeginPg
+{
+x := (-5) ; 
+y := 777.007 ;
+z := a + x * 7 ; 
+u := 8 ;
+B [5] := (x + 2) / (5 - b +(-3)) ;
+
+if (a OR b AND 2 + 4) then {
+ u := 7 ;
+}else {
+ output ("u =" , u) ;
+} 
+
+
+do {
+u := u + 20 ;
+} while (x<100);
+
+output (u);
+
+for i from 1 to 10 step 2 {
+output (i);
+}
+
+if ( y > 99) then
+{
+  for i from 1 to 10 step 5 {
+output (i) ;
+}  
+}
+
+input(Username) ;
+input(a ,b) ;
+
+}
+EndPg ;

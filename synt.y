@@ -131,6 +131,7 @@ TYPE1 : reel {printf("TYPE1 start (reel): cpt=%d\n", cpt); strcpy(sauvtype , $1)
         }
         cpt=0; } 
          ;
+         
 IDFS : idf {strcpy(sauv , $1); $$ = $1 ;};
 
 INSTRUCTIONS :  | IDFS AFFECTATION_NOR INSTRUCTIONS {  if (rechercheType($1,0)== 0){
@@ -169,7 +170,7 @@ $$ = $1 - $3 ; ;}
   if (rechercheType($1,0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
   
-} } | VALEUR2 {  $$ = $1 ;} ;
+} } | VALEUR2 {  $$ = $1 ; printf ("*************************************** %f" , $$) ;} ;
 
 
      
