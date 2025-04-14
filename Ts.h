@@ -203,10 +203,10 @@ int estConstante(char entite[]) {
     }
     return -1; // identificateur non trouvé
 }
-void insererConstante(char entite[], int estConstante) {
+void insererConstante(char entite[]) {
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
-        TIDF[posEntite].estConst= estConstante;
+        TIDF[posEntite].estConst= 1;
     }
 }
 

@@ -53,8 +53,8 @@ DECLARATION_LIST :
       |DECLARATION_Tableau pnt_virgul  DECLARATION_LIST
       | constante VARIABLEConst deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
 VARIABLEConst :
-       idf virgul VARIABLEConst {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;}
-      |idf {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;} ;
+       idf virgul VARIABLEConst {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++; insererConstante($1); }
+      |idf {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;insererConstante($1); } ;
 
 DECLARATION_Tableau : 
         let VARIABLE deux_pnts corechet_ouvr reel pnt_virgul entier_pos corechet_ferm 
@@ -153,7 +153,12 @@ AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR {indice
 
 AFFECTATION_NOR : affect EXPRESSION_ADD pnt_virgul {
    if (strcmp(recherchertype(sauv), checkNumberType($2)) != 0   ) { printf (" erreur semantique non compatibilite de type a la ligne %d \n", num_de_lignes) ;}
-   insererVal (sauv, $2 , 0) ; $$ = $2 ;} ;
+   if (estConstante(sauv) == 1) {
+    printf("erreur semantique modification de valeur de constante %s à la ligne %d\n", sauv, num_de_lignes);
+   }else{
+     insererVal (sauv, $2 , 0) ;
+   }
+    $$ = $2 ;} ;
 
 
 EXPRESSION_ADD :  parenthese_ouvr EXPRESSION_ADD parenthese_ferm { $$ = $2 ;}
@@ -170,7 +175,7 @@ $$ = $1 - $3 ; ;}
   if (rechercheType($1,0)== 0){
   printf ("erreur semantique non declaration de : %s a la ligne %d \n",$1,num_de_lignes);
   
-} } | VALEUR2 {  $$ = $1 ; printf ("*************************************** %f" , $$) ;} ;
+} } | VALEUR2 {  $$ = $1 ; } ;
 
 
      
