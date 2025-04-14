@@ -1,13 +1,13 @@
 MainPrgm Minisoft ;
 
 Var 
-let x : int ;
-let x : int ;                       <!- erreur double declaration -!>
+let x : Int ;
+let x : Int ;                       <!- erreur double declaration -!>
 
 
-@define Const a ,b  : int = 10 ;
-@define Const c : float = 6.8 ;
-let A,B :[int ; 10] ;
+@define Const a ,b  : Int = 10 ;
+@define Const c : Float = 6.8 ;
+let A,B :[Int ; 10] ;
 
 BeginPg
 {

@@ -52,8 +52,8 @@ for {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle",
 from {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return from ;}
 to {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return to ;}
 else {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return else_cond ;}
-int {col=col+yyleng; printf("mot cle : %s \n",yytext); yylval.str=strdup(yytext); inserer(yytext, "Mot cle", 2); return entier ;}
-float {col=col+yyleng; printf("mot cle : %s \n",yytext); yylval.str=strdup(yytext); inserer(yytext, "Mot cle", 2); return reel ;}
+Int {col=col+yyleng; printf("mot cle : %s \n",yytext); yylval.str=strdup(yytext); inserer(yytext, "Mot cle", 2); return entier ;}
+Float {col=col+yyleng; printf("mot cle : %s \n",yytext); yylval.str=strdup(yytext); inserer(yytext, "Mot cle", 2); return reel ;}
 input {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return lire ;}
 output {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return output ;}
 "@define Const" {col=col+yyleng; printf("declaration const \n");inserer(yytext, "Mot cle", 2);  return constante ;}

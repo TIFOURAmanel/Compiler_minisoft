@@ -1,15 +1,15 @@
 MainPrgm Minisoft ;
 <!- Partie déclaration -!>
 Var 
-let x : int ;
-let y : float ;
-let z : int ;
-let u : int ;
-let Username : float ;
-let i : int ;
-@define Const a ,b  : int = 10 ;
-@define Const c : float = 6.8 ;
-let A,B :[int ; 10] ;
+let x : Int ;
+let y : Float ;
+let z : Int ;
+let u : Int ;
+let Username : Float ;
+let i : Int ;
+@define Const a ,b  : Int = 10 ;
+@define Const c : Float = 6.8 ;
+let A,B :[Int ; 10] ;
 
 BeginPg
 {
