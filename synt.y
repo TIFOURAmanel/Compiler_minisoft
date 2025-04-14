@@ -50,11 +50,35 @@ DEBUT : MainPrgm idf pnt_virgul
 
 DECLARATION_LIST :
       |let VARIABLE deux_pnts TYPE1 pnt_virgul DECLARATION_LIST 
-       
-
+      |DECLARATION_Tableau pnt_virgul  DECLARATION_LIST
       | constante VARIABLEConst deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
-VARIABLEConst : idf virgul VARIABLE {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;}| idf {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;} ;
+VARIABLEConst :
+       idf virgul VARIABLEConst {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;}
+      |idf {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;} ;
 
+DECLARATION_Tableau : 
+        let VARIABLE deux_pnts corechet_ouvr reel pnt_virgul entier_pos corechet_ferm 
+        { int i ;
+        for (i = 0 ; i<cpt; i ++ ){
+          if (rechercheType(tabl_inter[i],0)==0){
+             insererType(tabl_inter[i],$5 , 0);
+          insererTailleTableau(tabl_inter[i], $7);
+          }else{
+            printf("erreur semantique double declaration de : %s a la ligne %d",tabl_inter[i],num_de_lignes);
+          }
+        }
+        cpt =0 ; }
+       |let VARIABLE deux_pnts corechet_ouvr entier pnt_virgul entier_pos corechet_ferm  
+       { int i ;
+        for (i = 0 ; i<cpt; i ++ ){
+          if (rechercheType(tabl_inter[i],0)==0){
+            insererType(tabl_inter[i],$5 , 0);
+          insererTailleTableau(tabl_inter[i], $7);
+          }else{
+            printf("erreur semantique double declaration de : %s a la ligne %d",tabl_inter[i],num_de_lignes);
+          }
+        }
+        cpt =0 ; };
 
 VALEUR: entier_pos {
   sauvval= $1; int i ;
@@ -88,7 +112,7 @@ VALEUR: entier_pos {
 
 VARIABLE: idf virgul VARIABLE { strcpy(tabl_inter[cpt], $1); cpt ++; }| idf { strcpy(tabl_inter[cpt], $1); cpt ++;  } ;
 
-TYPE1 : reel {strcpy(sauvtype , $1) ; int i ;
+TYPE1 : reel {printf("TYPE1 start (reel): cpt=%d\n", cpt); strcpy(sauvtype , $1) ; int i ;
         for (i = 0 ; i<cpt; i ++ ){
           if (rechercheType(tabl_inter[i],0)==0){
           insererType(tabl_inter[i],sauvtype , 0);
@@ -106,16 +130,7 @@ TYPE1 : reel {strcpy(sauvtype , $1) ; int i ;
           }
         }
         cpt=0; } 
-        | corechet_ouvr TYPE1 pnt_virgul entier_pos corechet_ferm  { int i ;
-        for (i = 0 ; i<cpt; i ++ ){
-          if (recherche(tabl_inter[i],0)!=-1){
-          insererTailleTableau(tabl_inter[i], $4);
-          }else{
-            printf("erreur idf non trouver\n");
-          }
-        }
-        cpt =0 ; } ;
-
+         ;
 IDFS : idf {strcpy(sauv , $1); $$ = $1 ;};
 
 INSTRUCTIONS :  | IDFS AFFECTATION_NOR INSTRUCTIONS {  if (rechercheType($1,0)== 0){
