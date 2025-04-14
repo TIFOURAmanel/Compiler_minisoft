@@ -58,19 +58,19 @@ void afficher() {
     // Afficher la table des symboles mots-clés
     printf("\n*********Table des symboles mots clés**********\n");
     printf("---\n");
-    printf("\t|NomEntite |CodeEntite | \n");
+    printf("\t|NomEntite    |CodeEntite | \n");
     printf("---\n");
 
     for (i = 0; i < 50; i++) {
         if (TSM[i].state == 1) {
-            printf("\t|%10s |%12s | \n", TSM[i].nomEntite, TSM[i].Code);
+            printf("\t|%10s   |%12s | \n", TSM[i].nomEntite, TSM[i].Code);
         }
     }
 
     // Afficher la table des symboles séparateurs
     printf("\n*********Table des symboles séparateurs**********\n");
     printf("---\n");
-    printf("\t|NomEntite |CodeEntite | \n");
+    printf("\t|NomEntite   |CodeEntite | \n");
     printf("---\n");
 
     for (i = 0; i < 50; i++) {

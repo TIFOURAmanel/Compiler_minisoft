@@ -1,5 +1,5 @@
 MainPrgm Minisoft ;
-
+<!- Partie déclaration -!>
 Var 
 let x : int ;
 let y : float ;
@@ -13,6 +13,9 @@ let A,B :[int ; 10] ;
 
 BeginPg
 {
+  {-- Partie Instructions 
+  
+   --}
 x := (-5) ; 
 y := 777.007 ;
 z := a + x * 7 ; 
@@ -40,6 +43,10 @@ if ( y > 99) then
   for i from 1 to 10 step 5 {
 output (i) ;
 }  
+}else {
+  if ( a == 2) then {
+    i := 0;
+  }
 }
 
 input(Username) ;

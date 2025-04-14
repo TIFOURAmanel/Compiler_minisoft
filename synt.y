@@ -152,7 +152,8 @@ INSTRUCTIONS :  | IDFS AFFECTATION_NOR INSTRUCTIONS {  if (rechercheType($1,0)==
 AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR {indicetab= $2 ; $$= $4 ; };
 
 AFFECTATION_NOR : affect EXPRESSION_ADD pnt_virgul {
-   if (strcmp(recherchertype(sauv), checkNumberType($2)) != 0   ) { printf (" erreur semantique non compatibilite de type a la ligne %d \n", num_de_lignes) ;}
+   if (strcmp(recherchertype(sauv), checkNumberType($2)) != 0   ) { 
+     printf (" erreur semantique non compatibilite de type a la ligne %d %s \n", num_de_lignes , checkNumberType($2)) ;}
    if (estConstante(sauv) == 1) {
     printf("erreur semantique modification de valeur de constante %s à la ligne %d\n", sauv, num_de_lignes);
    }else{
@@ -218,7 +219,10 @@ OPERATEUR_COND : inf | sup | inf_ou_egal | sup_ou_egal | identiq | diff ;
 
 LOOP_DO : boucle_do accolade_ouvr INSTRUCTIONS accolade_ferm boucle_while parenthese_ouvr EXPRESSION_COND parenthese_ferm pnt_virgul ;
 
-LOOP_FOR : boucle_for idf from entier_pos to entier_pos step entier_pos accolade_ouvr INSTRUCTIONS accolade_ferm ; 
+LOOP_FOR : boucle_for idf from entier_pos to entier_pos step entier_pos accolade_ouvr INSTRUCTIONS accolade_ferm 
+{ if (rechercheType($2,0)== 0){
+  printf ("erreur semantique non declaration de : %s a la ligne %d \n",$2,num_de_lignes);
+} } ; 
 
 
 
