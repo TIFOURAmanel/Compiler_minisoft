@@ -505,7 +505,7 @@ char *yytext;
 #include<stdio.h>
 #include<string.h>
 #include "synt.tab.h"  
-#include "Ts.h"
+#include "Tslist.h"
 
 extern YYSTYPE yylval;
 int num_de_lignes = 1 ;

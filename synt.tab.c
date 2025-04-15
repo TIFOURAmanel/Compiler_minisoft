@@ -2089,7 +2089,8 @@ yyreturn:
 /* Line 1675 of yacc.c  */
 #line 277 "synt.y"
 
-int main() { 
+int main() {
+  initialization(); 
   yyparse();
   afficher();
 }

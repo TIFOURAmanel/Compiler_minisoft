@@ -275,7 +275,8 @@ LOOP_FOR : boucle_for IDFS from entier_pos to entier_pos step entier_pos accolad
 
 
 %%
-int main() { 
+int main() {
+  initialization(); 
   yyparse();
   afficher();
 }
