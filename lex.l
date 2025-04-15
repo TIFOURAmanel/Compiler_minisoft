@@ -7,7 +7,7 @@
 
 extern YYSTYPE yylval;
 int num_de_lignes = 1 ;
-int col=0;
+int col=1;
 
 
 
@@ -32,14 +32,13 @@ reel_signer "("[-+]?([1-9]*|0)(".")([0-9]+)")"
 
 \n {
     num_de_lignes++ ; 
-    //printf("le nombre de linge : %d \n",num_de_lignes);
     col = 1;
     }
 
 MainPrgm {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return (MainPrgm) ;}
 Var {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return var ;}
 BeginPg {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return BeginPg ;}
-EndPg {printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return EndPg ;}
+EndPg {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return EndPg ;}
 let {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return let ;}
 AND {col=col+yyleng; printf("operateur : %s \n",yytext);inserer(yytext, "Mot cle", 2); return and ;}
 OR {col=col+yyleng; printf("operateur : %s \n",yytext);inserer(yytext, "Mot cle", 2);  return or ;}

@@ -509,7 +509,7 @@ char *yytext;
 
 extern YYSTYPE yylval;
 int num_de_lignes = 1 ;
-int col=0;
+int col=1;
 
 
 
@@ -757,128 +757,127 @@ YY_RULE_SETUP
 #line 33 "lex.l"
 {
     num_de_lignes++ ; 
-    //printf("le nombre de linge : %d \n",num_de_lignes);
     col = 1;
     }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 39 "lex.l"
+#line 38 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return (MainPrgm) ;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 40 "lex.l"
+#line 39 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return var ;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 41 "lex.l"
+#line 40 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return BeginPg ;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 42 "lex.l"
-{printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return EndPg ;}
+#line 41 "lex.l"
+{col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return EndPg ;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 43 "lex.l"
+#line 42 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return let ;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 44 "lex.l"
+#line 43 "lex.l"
 {col=col+yyleng; printf("operateur : %s \n",yytext);inserer(yytext, "Mot cle", 2); return and ;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 45 "lex.l"
+#line 44 "lex.l"
 {col=col+yyleng; printf("operateur : %s \n",yytext);inserer(yytext, "Mot cle", 2);  return or ;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 46 "lex.l"
+#line 45 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return if_cond ;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 47 "lex.l"
+#line 46 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return then ;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 48 "lex.l"
+#line 47 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return step ;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 49 "lex.l"
+#line 48 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext); inserer(yytext, "Mot cle", 2); return boucle_do ;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 50 "lex.l"
+#line 49 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return boucle_while ;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 51 "lex.l"
+#line 50 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return boucle_for ;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 52 "lex.l"
+#line 51 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return from ;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 53 "lex.l"
+#line 52 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return to ;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 54 "lex.l"
+#line 53 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return else_cond ;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 55 "lex.l"
+#line 54 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext); yylval.str=strdup(yytext); inserer(yytext, "Mot cle", 2); return entier ;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 56 "lex.l"
+#line 55 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext); yylval.str=strdup(yytext); inserer(yytext, "Mot cle", 2); return reel ;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 57 "lex.l"
+#line 56 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return lire ;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 58 "lex.l"
+#line 57 "lex.l"
 {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext, "Mot cle", 2); return output ;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 59 "lex.l"
+#line 58 "lex.l"
 {col=col+yyleng; printf("declaration const \n");inserer(yytext, "Mot cle", 2);  return constante ;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 62 "lex.l"
+#line 61 "lex.l"
 {col=col+yyleng; printf("chain de car: %s \n",yytext); yylval.str=strdup(yytext); inserer(yytext,"String",3); return chaine ;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 63 "lex.l"
+#line 62 "lex.l"
 {col=col+yyleng; printf("un commentaire une ligne \n");}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 64 "lex.l"
+#line 63 "lex.l"
 { 
     col=col+yyleng;
     printf("un commentaire plusieurs lignes \n");
@@ -894,7 +893,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 76 "lex.l"
+#line 75 "lex.l"
 { col=col+yyleng; 
     if (yyleng > 14) 
     {printf ("erreur lexicale : le IDF depasse 14 caracteres \n"); }
@@ -907,12 +906,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 85 "lex.l"
+#line 84 "lex.l"
 {col=col+yyleng; printf("entier positif\n"); yylval.entier=atoi(yytext);  return entier_pos ;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 87 "lex.l"
+#line 86 "lex.l"
 {
         col=col+yyleng;
         char *varstr=strdup(yytext+1);
@@ -931,12 +930,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 104 "lex.l"
+#line 103 "lex.l"
 {col=col+yyleng; printf("reel non signe positif\n"); yylval.reel=atof(yytext); return reel_pos ;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 105 "lex.l"
+#line 104 "lex.l"
 {
         col=col+yyleng;
         char *varstr = strdup(yytext+ 1); 
@@ -952,130 +951,130 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 118 "lex.l"
+#line 117 "lex.l"
 {col++; printf("operateur : negation \n" );inserer(yytext, "Separateur ", 1); return neg ;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 119 "lex.l"
+#line 118 "lex.l"
 {col++; printf("pvg\n");inserer(yytext, "Separateur ", 1); return pnt_virgul ;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 120 "lex.l"
+#line 119 "lex.l"
 {col++; ("deux points \n");inserer(yytext, "Separateur ", 1); return deux_pnts ;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 121 "lex.l"
+#line 120 "lex.l"
 {col++; printf("le vergule \n");inserer(yytext, "Separateur ", 1); return virgul ;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 122 "lex.l"
+#line 121 "lex.l"
 {col++; printf("parenthese_ouvrante \n");inserer(yytext, "Separateur ", 1); return parenthese_ouvr ;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 123 "lex.l"
+#line 122 "lex.l"
 {col++; printf("parenthese_fermante \n"); inserer(yytext, "Separateur ", 1); return parenthese_ferm ;}  
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 124 "lex.l"
+#line 123 "lex.l"
 {col++; printf("accolade_ouvrante \n"); inserer(yytext, "Separateur ", 1); return accolade_ouvr ;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 125 "lex.l"
+#line 124 "lex.l"
 {col++; printf("accolade_fermante \n"); inserer(yytext, "Separateur ", 1); return accolade_ferm ;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 126 "lex.l"
+#line 125 "lex.l"
 {col++; printf("soustract \n"); inserer(yytext, "Separateur ", 1); return soustract ;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 127 "lex.l"
+#line 126 "lex.l"
 {col++; printf("addition \n"); inserer(yytext, "Separateur ", 1); return add ;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 128 "lex.l"
+#line 127 "lex.l"
 {col++; printf("multiplication \n"); inserer(yytext, "Separateur ", 1); return multipl ;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 129 "lex.l"
+#line 128 "lex.l"
 {col++; printf("division \n"); inserer(yytext, "Separateur ", 1); return division ;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 130 "lex.l"
+#line 129 "lex.l"
 {col=col+2; printf("affectation \n"); inserer(yytext, "Separateur ", 1); return affect ;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 131 "lex.l"
+#line 130 "lex.l"
 {col++; printf("corechets ouvrante \n"); inserer(yytext, "Separateur ", 1); return corechet_ouvr ;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 132 "lex.l"
+#line 131 "lex.l"
 {col++; printf("corechets fermente \n"); inserer(yytext, "Separateur ", 1); return corechet_ferm ;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 133 "lex.l"
+#line 132 "lex.l"
 {col++; printf("egale\n"); inserer(yytext, "Separateur ", 1); return egal ;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 135 "lex.l"
+#line 134 "lex.l"
 {col++; printf("inferieur \n"); inserer(yytext, "Separateur ", 1); return inf ;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 136 "lex.l"
+#line 135 "lex.l"
 {col++; printf("superieur \n"); inserer(yytext, "Separateur ", 1); return sup ;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 137 "lex.l"
+#line 136 "lex.l"
 {col=col+2; printf("superieur_ou_egale \n"); inserer(yytext, "Separateur ", 1); return sup_ou_egal ;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 138 "lex.l"
+#line 137 "lex.l"
 {col=col+2; printf("inferieur_ou_egae \n"); inserer(yytext, "Separateur ", 1); return inf_ou_egal ;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 139 "lex.l"
+#line 138 "lex.l"
 {col=col+2; printf("egale \n"); inserer(yytext, "Separateur ", 1); return identiq ;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 140 "lex.l"
+#line 139 "lex.l"
 {col=col+2; printf("different_de \n"); inserer(yytext, "Separateur ", 1); return diff ;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 142 "lex.l"
+#line 141 "lex.l"
 {col++; printf("espace \n");}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 146 "lex.l"
+#line 145 "lex.l"
 {printf("erreur lexicale a la ligne %d \n", num_de_lignes); } 
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 148 "lex.l"
+#line 147 "lex.l"
 ECHO;
 	YY_BREAK
-#line 1079 "lex.yy.c"
+#line 1078 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1961,5 +1960,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 148 "lex.l"
+#line 147 "lex.l"
 
