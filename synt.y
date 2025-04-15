@@ -12,7 +12,7 @@ char sauvtype [20];
 char sauv [20];
 double sauvval; 
 int indicetab; 
-
+ int indice; 
 %}
 %union {
 int entier;
@@ -85,6 +85,7 @@ VALEUR: entier_pos {
         for (i = 0 ; i<cpt2; i ++ ){
           
           insererVal(tabl_inter2[i],sauvval , 0);
+           insererkind(tabl_inter2[i], 1);
           
         }
         cpt2 =0 ; }  | entier_neg {
@@ -92,21 +93,21 @@ VALEUR: entier_pos {
         for (i = 0 ; i<cpt2; i ++ ){
          
           insererVal(tabl_inter2[i],sauvval , 0);
-         
+            insererkind(tabl_inter2[i], 1);
         }
         cpt2 =0 ; }  | reel_pos {
   sauvval= $1; int i ;
         for (i = 0 ; i<cpt2; i ++ ){
           
           insererVal(tabl_inter2[i],sauvval , 0);
-          
+            insererkind(tabl_inter2[i], 1);
         }
         cpt2 =0 ; }   | reel_neg{
   sauvval= $1; int i ;
         for (i = 0 ; i<cpt2; i ++ ){
           
           insererVal(tabl_inter2[i],sauvval , 0);
-        
+          insererkind(tabl_inter2[i], 1);
         }
         cpt2 =0 ; }   ;
 
@@ -148,13 +149,23 @@ INSTRUCTIONS :  | IDFS AFFECTATION_NOR INSTRUCTIONS {  if (rechercheType($1,0)==
   }
 } }
 | INPUT INSTRUCTIONS | OUTPUT INSTRUCTIONS | CONDITION INSTRUCTIONS | LOOP_DO INSTRUCTIONS | LOOP_FOR INSTRUCTIONS ;
-
-AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR {indicetab= $2 ; $$= $4 ; };
-
+AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR {
+                  indice= $2 ; 
+                  $$= $4 ; 
+                    if (strcmp(recherchertype(sauv), checkNumberType($4)) == 0   ) { 
+                      if (retournerkind(sauv)==2) {
+                        if (indice < recherchertailleTableau(sauv)){   
+                            insererValeurTableau ( sauv,indice, $4 );
+                        }else{
+                          printf("erreur semantique : depasement de taille tableau a la ligne %d\n",num_de_lignes);
+                        }
+                      }
+                    }  
+                  };
 AFFECTATION_NOR : affect EXPRESSION_ADD pnt_virgul {
    if (strcmp(recherchertype(sauv), checkNumberType($2)) != 0   ) { 
      printf (" erreur semantique non compatibilite de type a la ligne %d %s \n", num_de_lignes , checkNumberType($2)) ;}
-   if (estConstante(sauv) == 1) {
+   if (kindVal(sauv) == 1) {
     printf("erreur semantique modification de valeur de constante %s à la ligne %d\n", sauv, num_de_lignes);
    }else{
      insererVal (sauv, $2 , 0) ;
