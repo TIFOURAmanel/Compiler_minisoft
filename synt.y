@@ -12,7 +12,8 @@ char sauvtype [20];
 char sauv [20];
 double sauvval; 
 int indicetab; 
- int indice; 
+int indice; 
+
 %}
 %union {
 int entier;
@@ -53,8 +54,8 @@ DECLARATION_LIST :
       |DECLARATION_Tableau pnt_virgul  DECLARATION_LIST
       | constante VARIABLEConst deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
 VARIABLEConst :
-       idf virgul VARIABLEConst {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++; insererConstante($1); }
-      |idf {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;insererConstante($1); } ;
+       idf virgul VARIABLEConst {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++; insererkind($1 , 1); }
+      |idf {  strcpy(tabl_inter2[cpt2], $1); cpt2 ++; strcpy(tabl_inter[cpt], $1); cpt ++;insererkind($1 , 1); } ;
 
 DECLARATION_Tableau : 
         let VARIABLE deux_pnts corechet_ouvr reel pnt_virgul entier_pos corechet_ferm 

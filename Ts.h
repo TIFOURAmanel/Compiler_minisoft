@@ -289,9 +289,9 @@ char* recherchertype (char entite[]){
 
  char* checkNumberType(double num) {
     if((num == (long long)num)) {
-    return  "int";
+    return  "Int";
 } else {
-    return "float" ;
+    return "Float" ;
 }
 }
 void insererValeurTableau(char* entite, int index, double valeur) {
