@@ -10,7 +10,6 @@ char tabl_inter [100][20];
 char tabl_inter2 [100][20];
 int cpt= 0;
 int cpt2= 0;
-char sauvtype [20];
 char sauv [20];
 double sauvval; 
 int indicetab; 
@@ -30,16 +29,12 @@ int indice;
 %token from to step boucle_do boucle_while else_cond identiq  
 
 %type <reel> VALEUR
-%type <reel> VALEUR2 
 %type <reel> EXPRESSION_ADD 
 %type <reel> AFFECTATION_NOR 
 %type <reel> AFFECTATION_TAB 
 %type <str> IDFS 
 
 %start DEBUT
-
-%nonassoc then
-%nonassoc else_cond
 
 %left or 
 %left and 
@@ -56,7 +51,10 @@ DEBUT : MainPrgm idf pnt_virgul
          DECLARATION_LIST 
          BeginPg accolade_ouvr 
          INSTRUCTIONS 
-         accolade_ferm EndPg pnt_virgul {printf("/******************************* Programme correcte syntaxiquement ***********************************/"); YYACCEPT ;};
+         accolade_ferm EndPg pnt_virgul {
+          printf("/******************************* Programme correcte syntaxiquement ***********************************/"); 
+          YYACCEPT ;
+        };
 
 DECLARATION_LIST :
                   |let VARIABLE deux_pnts TYPE1 pnt_virgul DECLARATION_LIST 
@@ -102,50 +100,49 @@ DECLARATION_Tableau :
                     };
 
 VALEUR: entier_pos {
+                  $$=$1;
                   sauvval= $1;
                   int i ;
                   for (i = 0 ; i<cpt2; i ++ ){
                     insererVal(tabl_inter2[i],sauvval , 0);
-                    insererkind(tabl_inter2[i], 1); 
                   }
                   cpt2 =0 ; 
                 } 
                 | entier_neg {
+                  $$=$1;
                   sauvval= $1; 
                   int i ;
                   for (i = 0 ; i<cpt2; i ++ ){
                     insererVal(tabl_inter2[i],sauvval , 0);
-                    insererkind(tabl_inter2[i], 1);
                   }
                   cpt2 =0 ; 
                 }  
                 | reel_pos {
+                  $$=$1;
                   sauvval= $1; 
                   int i ;
                   for (i = 0 ; i<cpt2; i ++ ){
                     insererVal(tabl_inter2[i],sauvval , 0);
-                    insererkind(tabl_inter2[i], 1);
                   }
                   cpt2 =0 ; 
                 }   
                 | reel_neg{
+                  $$=$1;
                   sauvval= $1; int i ;
                   for (i = 0 ; i<cpt2; i ++ ){
                     insererVal(tabl_inter2[i],sauvval , 0);
-                    insererkind(tabl_inter2[i], 1);
                   }
                   cpt2 =0 ; 
                 };
 
 VARIABLE: idf virgul VARIABLE { strcpy(tabl_inter[cpt], $1); cpt ++; }
-        | idf { strcpy(tabl_inter[cpt], $1); cpt ++;  } ;
+        | idf                 { strcpy(tabl_inter[cpt], $1); cpt ++;  } ;
 
 TYPE1 : reel { 
-             strcpy(sauvtype , $1) ;
               int i ;
               for (i = 0 ; i<cpt; i ++ ){
                 if (rechercheType(tabl_inter[i],0)==0){
-                  insererType(tabl_inter[i],sauvtype , 0);
+                  insererType(tabl_inter[i],$1 , 0);
                 }else{
                   printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
                 }
@@ -153,11 +150,10 @@ TYPE1 : reel {
               cpt=0;
             } 
       | entier {
-              strcpy(sauvtype , $1) ; 
               int i ;
               for (i = 0 ; i<cpt; i ++ ){
                 if (rechercheType(tabl_inter[i],0)==0){
-                  insererType(tabl_inter[i],sauvtype , 0);
+                  insererType(tabl_inter[i],$1 , 0);
                 }else{
                   printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
                 }
@@ -181,9 +177,6 @@ INSTRUCTIONS :
             | IDFS AFFECTATION_TAB INSTRUCTIONS { 
                                                 if (rechercheType($1,0)== 0){
                                                  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",$1,num_de_lignes , col);
-                                                  if ( recherchertailleTableau ($1)< indicetab){
-                                                    printf("depasement de taille du tableau de %s",$1);
-                                                  }
                                                 } 
                                               }
             | INPUT INSTRUCTIONS | OUTPUT INSTRUCTIONS | CONDITION INSTRUCTIONS | LOOP_DO INSTRUCTIONS | LOOP_FOR INSTRUCTIONS ;
@@ -231,25 +224,19 @@ EXPRESSION_ADD :  parenthese_ouvr EXPRESSION_ADD parenthese_ferm { $$ = $2 ;}
                     printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",$1,num_de_lignes , col);
                   } 
                 }
-                | VALEUR2 {  $$ = $1 ; } ;
-
-VALEUR2 : entier_pos { $$ = $1 ;} 
-        | entier_neg { $$ = $1 ;}  
-        | reel_pos { $$ = $1 ;}  
-        | reel_neg { $$ = $1 ;} ;
+                | VALEUR {  $$ = $1 ; } ;
 
 
-INPUT : lire parenthese_ouvr idf REPETITION parenthese_ferm pnt_virgul  { 
-                                                                        if (rechercheType($3,0)== 0){
-                                                                          printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",$3,num_de_lignes , col);
-                                                                        }
-                                                                     };
 
-REPETITION : | virgul idf REPETITION { 
-                                   if (rechercheType($2,0)== 0){
-                                     printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",$2,num_de_lignes , col);
-                                    }
-                                  } ;
+
+INPUT : lire parenthese_ouvr VARIABLE parenthese_ferm pnt_virgul  { int i;
+                                                                    for ( i = 0;i < cpt; i++ ){   
+                                                                      if (rechercheType(tabl_inter[i],0)== 0){
+                                                                        printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
+                                                                      }
+                                                                    }
+                                                                  };
+
 
 OUTPUT : output parenthese_ouvr DANS_OUTPUT parenthese_ferm pnt_virgul ;
 
