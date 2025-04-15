@@ -1,15 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+typedef struct ElementTableau {
+    int index;     //  l'index de tableau
+    double value;   // la valeur inserer pour cet index
+    struct ElementTableau *next;
+} ElemenTableau;
 typedef struct {
     int state; 
     char name[20];
     char code[20];
     char type[20];
     double val;
-    int estConst ;// si une var est une constante ou pas 
+    int Kind ;// 0 si valeur 1 si constante 2 si tableau 
     int tailletableau; //pour ajouter la taille du tableau si scest un tableau 
+    ElemenTableau* valeurTableau ;
 }TS_IDF ;
 
 typedef struct
@@ -25,7 +30,7 @@ TS_MCS TSS[50], TSM[50];
 void initialization(){
     int i;
     // TS des IDF
-    for (i=0;i<200; i++){ TIDF[i]. state=0; TIDF[i].estConst=0;}
+    for (i=0;i<200; i++){ TIDF[i]. state=0; TIDF[i].Kind=0;}
     // TS des Mots clés & Separateurs
     for (i=0;i<50;i++)
     {
@@ -33,52 +38,98 @@ void initialization(){
     TSM[i].state=0;
     }
 }
-/******************************* fonction d'affichage  ***********************************/
+/******************************* fonction d'affichage ***********************************/
 void afficher() {
     int i;
 
-    printf("\n*********Table des symboles IDF*********\n");
-    printf("---\n");
-    printf("\t|Nom_Entite | Code_Entite | Type_Entite | Val_Entite | Constante | TailleTableau\n");
-    printf("---\n");
+    // --- Afficher la table des symboles IDF ---
+    printf("\n\n");
+    printf("          ========================================\n");
+    printf("          ====== Table des Symboles (TIDF) ======\n");
+    printf("          ========================================\n");
+    printf("+------------+-------------+---------------+--------------------------+---------+---------------+\n");
+    printf("| Nom Entite | Code Entite | Type Entite   | Valeur / Contenu Tableau | Kind    | Taille Tableau|\n");
+    printf("+------------+-------------+---------------+--------------------------+---------+---------------+\n");
 
-    for (i = 0; i < 200; i++) {
+    for (i = 0; i < 200; i++) { // Loop through potential size, check state
         if (TIDF[i].state == 1) {
-            printf("\t|%10s |%12s |%13s |%12f |%9d |%10d\n",
+            printf("| %-10s | %-11s | %-13s | ",
                    TIDF[i].name,
                    TIDF[i].code,
-                   TIDF[i].type,
-                   TIDF[i].val,
-                   TIDF[i].estConst,
-                   TIDF[i].tailletableau);
+                   TIDF[i].type);
+
+            if (TIDF[i].Kind == 2) { // It's an array
+                printf("%-24s | %-7d | %-13d |\n",
+                       "[Tableau]",
+                       TIDF[i].Kind,
+                       TIDF[i].tailletableau);
+
+                // Print array content on subsequent lines
+                ElemenTableau *current = TIDF[i].valeurTableau;
+                if (current != NULL) {
+                    printf("|            |             |               | Contenu: ");
+                    int count = 0;
+                    while (current != NULL) {
+                        if (count > 0) printf(", ");
+                        // Add line breaks for many elements if desired
+                        // if (count > 0 && count % 4 == 0) {
+                        //    printf("\n|            |             |               |          ");
+                        // }
+                        printf("[%d]=%.2f", current->index, current->value);
+                        current = current->next;
+                        count++;
+                    }
+                    printf("%*s|\n", 24 - (10 + count*8), ""); // Adjust padding roughly
+                } else if (TIDF[i].tailletableau > 0) {
+                     printf("|            |             |               | Contenu: [Vide]          |         |               |\n");
+                }
+
+            } else { // It's a simple variable (Kind=0) or constant (Kind=1)
+                printf("%-24.2f | %-7d | %-13d |\n",
+                       TIDF[i].val,
+                       TIDF[i].Kind,
+                       TIDF[i].tailletableau); // Should be 0 for non-arrays
+            }
+             printf("+------------+-------------+---------------+--------------------------+---------+---------------+\n");
         }
     }
 
 
-    // Afficher la table des symboles mots-clés
-    printf("\n*********Table des symboles mots clés**********\n");
-    printf("---\n");
-    printf("\t|NomEntite    |CodeEntite | \n");
-    printf("---\n");
+    // --- Afficher la table des symboles Mots Clés ---
+    printf("\n\n");
+    printf("          ===============================\n");
+    printf("          ====== Mots Cles (TSM) ======\n");
+    printf("          ===============================\n");
+    printf("+-------------+-------------+\n");
+    printf("| Nom Entite  | Code Entite |\n");
+    printf("+-------------+-------------+\n");
 
     for (i = 0; i < 50; i++) {
         if (TSM[i].state == 1) {
-            printf("\t|%10s   |%12s | \n", TSM[i].nomEntite, TSM[i].Code);
+            printf("| %-11s | %-11s |\n", TSM[i].nomEntite, TSM[i].Code);
         }
     }
+    printf("+-------------+-------------+\n");
 
-    // Afficher la table des symboles séparateurs
-    printf("\n*********Table des symboles séparateurs**********\n");
-    printf("---\n");
-    printf("\t|NomEntite   |CodeEntite | \n");
-    printf("---\n");
+
+    // --- Afficher la table des symboles Séparateurs ---
+     printf("\n\n");
+    printf("          =================================\n");
+    printf("          ====== Separateurs (TSS) ======\n");
+    printf("          =================================\n");
+    printf("+-------------+-------------+\n");
+    printf("| Nom Entite  | Code Entite |\n");
+    printf("+-------------+-------------+\n");
 
     for (i = 0; i < 50; i++) {
-        if (TSS[i].state == 1 ) {
-            printf("\t|%10s |%12s | \n", TSS[i].nomEntite, TSS[i].Code);
+        if (TSS[i].state == 1) {
+            printf("| %-11s | %-11s |\n", TSS[i].nomEntite, TSS[i].Code);
         }
     }
+    printf("+-------------+-------------+\n");
+    printf("\n");
 }
+
 
 // Global counters for each table
 int CpTIDF = 0;  // Counter for TIDF table
@@ -173,8 +224,10 @@ void insererVal(char entite[], double val, int tableType)
     
     int posEntite = recherche(entite, tableType);
     if (posEntite != -1) { // If entity exists in the table
-        TIDF[posEntite].val= (double)val;
+        
+         TIDF[posEntite].val= (double)val;
     }
+      
 }
 
 // Function to check if an entity has a type
@@ -194,19 +247,21 @@ void insererTailleTableau(char entite[], int taille) {
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
         TIDF[posEntite].tailletableau = taille;
+        TIDF[posEntite].Kind = 2;
+        TIDF[posEntite].valeurTableau = NULL;  
     }
 }
-int estConstante(char entite[]) {
+int kindVal(char entite[]) {
     int pos = recherche(entite, 0); // tableType = 0 pour TIDF
     if (pos != -1) {
-        return TIDF[pos].estConst;
+        return TIDF[pos].Kind;
     }
     return -1; // identificateur non trouvé
 }
-void insererConstante(char entite[]) {
+void insererkind(char entite[], int KIND) {
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
-        TIDF[posEntite].estConst= 1;
+        TIDF[posEntite].Kind= KIND;
     }
 }
 
@@ -238,4 +293,80 @@ char* recherchertype (char entite[]){
 } else {
     return "float" ;
 }
+}
+void insererValeurTableau(char* entite, int index, double valeur) {
+    int position = recherche(entite, 0);
+    if (position != -1) {
+        if (TIDF[position].Kind == 2) {
+            if (index < 0 || index >= TIDF[position].tailletableau) {
+                printf("Erreur Semantique: Indice %d est hors limites pour le tableau '%s' (taille definie: %d).\n",
+                       index, entite, TIDF[position].tailletableau);
+                return;
+            }
+
+            ElemenTableau *current = TIDF[position].valeurTableau;
+            while (current != NULL) {
+                if (current->index == index) {
+                    current->value = valeur;
+                    return; 
+                }
+                current = current->next;
+            }
+
+            ElemenTableau* newElement = (ElemenTableau*)malloc(sizeof(ElemenTableau));
+            if (newElement == NULL) {
+                printf("Erreur d'allocation mémoire\n");
+                return;
+            }
+            newElement->index = index;
+            newElement->value = valeur;
+            newElement->next = NULL;
+
+            if (TIDF[position].valeurTableau == NULL) {
+                TIDF[position].valeurTableau = newElement;
+            } else {
+                current = TIDF[position].valeurTableau;
+                while (current->next != NULL) { 
+                    current = current->next;
+                }
+                current->next = newElement;
+            }
+        } else {
+             printf("Warning: Attempting to insert into '%s' which is not an array (Kind=%d).\n", entite, TIDF[position].Kind);
+        }
+    } else {
+        printf("Error: Identifier '%s' not found for array insertion.\n", entite);
+    }
+}
+double rechercherDansTableau(char* entite, int index) {
+    int position = recherche(entite, 0);
+    if (position != 0) {
+        if (TIDF[position].Kind == 2) {
+            if (index < 0 || index >= TIDF[position].tailletableau) {
+                printf("Erreur Semantique: Indice %d est hors limites pour le tableau '%s' (taille definie: %d).\n",
+                       index, entite, TIDF[position].tailletableau);
+                return 0;  // Return default value or error code
+            }
+            
+            // Search for the element with matching index
+            ElemenTableau *current = TIDF[position].valeurTableau;
+            while (current != NULL) {
+                if (current->index == index) {
+                    return current->value;
+                }
+                current = current->next;
+            }
+            
+            // Element not found (not yet assigned)
+            return 0;  // Return default value or error code
+        }
+    }
+    return 0;  // Return default value or error code
+}
+int retournerkind (char entite[]){
+    int positon = (int) recherche(entite,0 );
+    if (positon!=-1){
+        return TIDF[positon].Kind;
+    } 
+
 }
