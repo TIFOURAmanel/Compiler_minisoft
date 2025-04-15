@@ -15,6 +15,8 @@ double sauvval;
 int indicetab; 
 int indice; 
 
+int qc=0;
+
 %}
 
 %union {
@@ -286,4 +288,4 @@ yywrap(){return 1;}
 int yyerror(char *msg){
   printf(" Erreur syntaxique a la ligne %d la colonne %d lentite %s " , num_de_lignes , col,  yytext);
 }
-    
+

@@ -15,9 +15,9 @@ typedef struct TS_IDF_Node {
     char code[20];
     char type[20];
     double val;
-    int Kind;          // 0 si valeur 1 si constante 2 si tableau 
+    int Kind;          //  1 si constante 2 si tableau 
     int tailletableau; // pour ajouter la taille du tableau si c'est un tableau 
-    ElemenTableau* valeurTableau; // les valeurs de chaque tableau
+    ElemenTableau* valeurTableau; // les valeurs des elements de chaque tableau
     struct TS_IDF_Node* next;  // Pointeur vers le prochain noeud
 } TS_IDF;
 
@@ -45,7 +45,7 @@ int CpTSM = 0;   // Counter for TSM table
 
 /***************************fonction d'initialisation ******************************** */
 void initialization() {
-    // Réinitialiser les têtes et queues à NULL
+    // initialiser les têtes et queues à NULL
     TIDF_head = NULL;
     TIDF_tail = NULL;
     
@@ -55,6 +55,7 @@ void initialization() {
     TSM_head = NULL;
     TSM_tail = NULL;
 }
+
 /******************************* fonction d'affichage ***********************************/
 void afficher() {
     // --- Afficher la table des symboles IDF ---
@@ -301,7 +302,7 @@ int rechercheType(char entite[], int tableType)
     return -1; // Entity not found
 }
 
-/******************************* fonction  d'insertion de tableau '  ***********************************/
+/******************************* fonction  d'insertion de taille tableau '  ***********************************/
 
 void insererTailleTableau(char entite[], int taille) {
     TS_IDF* current = TIDF_head;
@@ -309,13 +310,14 @@ void insererTailleTableau(char entite[], int taille) {
         if (strcmp(current->name, entite) == 0) {
             current->tailletableau = taille;
             current->Kind = 2;
-            current->valeurTableau = NULL;  // Reset any existing values
+            current->valeurTableau = NULL;  
             return;
         }
         current = current->next;
     }
 }
 
+/******************************* fonction pour recuperer le kind d'une l'entite '  ***********************************/
 
 int kindVal(char entite[]) {
     TS_IDF* current = TIDF_head;
@@ -327,6 +329,9 @@ int kindVal(char entite[]) {
     }
     return -1;
 }
+
+/******************************* fonction  d'insertion de kind'  ***********************************/
+
 void insererkind(char entite[], int KIND) {
     TS_IDF* current = TIDF_head;
     while (current != NULL) {
@@ -337,6 +342,9 @@ void insererkind(char entite[], int KIND) {
         current = current->next;
     }
 }
+
+/******************************* fonction  pour récupérer la taille d'un tableau '  ***********************************/
+
 int recherchertailleTableau(char entite[]) {
     TS_IDF* current = TIDF_head;
     while (current != NULL) {
@@ -347,6 +355,9 @@ int recherchertailleTableau(char entite[]) {
     }
     return -1;
 }
+
+/******************************* fonction  pour recupérer la valeur d'une entité '  ***********************************/
+
 int rechercherval(char entite[]) {
     TS_IDF* current = TIDF_head;
     while (current != NULL) {
@@ -357,6 +368,9 @@ int rechercherval(char entite[]) {
     }
     return -1;
 }
+
+/******************************* fonction  por récupérer le type d'une entité'  ***********************************/
+
 char* recherchertype(char entite[]) {
     TS_IDF* current = TIDF_head;
     while (current != NULL) {
@@ -367,6 +381,9 @@ char* recherchertype(char entite[]) {
     }
     return NULL;
 }
+
+/******************************* fonction  pour retourner le type d'une valeur '  ***********************************/
+
 char* checkNumberType(double num) {
     if ((num == (long long)num)) {
         return "Int";
@@ -374,16 +391,21 @@ char* checkNumberType(double num) {
         return "Float";
     }
 }
+
+/******************************* fonction  d'insertion de valeur tableau '  ***********************************/
+
 void insererValeurTableau(char* entite, int index, double valeur) {
     TS_IDF* current = TIDF_head;
     while (current != NULL) {
         if (strcmp(current->name, entite) == 0) {
+            /*
             if (current->Kind == 2) {
                 if (index < 0 || index >= current->tailletableau) {
                     printf("Erreur Semantique: Indice %d est hors limites pour le tableau '%s' (taille definie: %d).\n",
                            index, entite, current->tailletableau);
                     return;
                 }
+            */
 
                 ElemenTableau *elem = current->valeurTableau;
                 while (elem != NULL) {
@@ -401,38 +423,13 @@ void insererValeurTableau(char* entite, int index, double valeur) {
                 newElement->next = current->valeurTableau;
                 current->valeurTableau = newElement;
 
-            } else {
+            /*} else {
                 printf("Warning: '%s' is not an array (Kind = %d).\n", entite, current->Kind);
-            }
+            } 
+                */
             return;
         }
         current = current->next;
     }
     printf("Error: Identificateur '%s' non trouvé pour l'insertion dans un tableau.\n", entite);
-}
-double rechercherDansTableau(char* entite, int index) {
-    TS_IDF* current = TIDF_head;
-    while (current != NULL) {
-        if (strcmp(current->name, entite) == 0) {
-            if (current->Kind == 2) {
-                if (index < 0 || index >= current->tailletableau) {
-                    printf("Erreur Semantique: Indice %d est hors limites pour le tableau '%s' (taille definie: %d).\n",
-                           index, entite, current->tailletableau);
-                    return 0;
-                }
-
-                ElemenTableau *elem = current->valeurTableau;
-                while (elem != NULL) {
-                    if (elem->index == index) {
-                        return elem->value;
-                    }
-                    elem = elem->next;
-                }
-
-                return 0;
-            }
-        }
-        current = current->next;
-    }
-    return 0;
 }

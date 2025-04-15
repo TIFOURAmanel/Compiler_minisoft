@@ -1,44 +1,79 @@
 MainPrgm Minisoft ;
+
 <!- Partie déclaration -!>
+
 Var 
+<!- Declaration -!>
+
 let x : Int ;
 let y : Float ;
-let z : Int ;
-let u : Int ;
+let z,u,h : Int ;
 let Username : Float ;
 let i : Int ;
+
+<!- Declaration constantes -!>
+
 @define Const a ,b  : Int = 10 ;
 @define Const c : Float = 6.8 ;
+
+<!- Declaration tableau -!>
+
 let A,B :[Int ; 10] ;
+let R :[Float ; 5] ;
+
+{-- Partie Instructions 
+  
+   --}
 
 BeginPg
 {
-  {-- Partie Instructions 
-  
-   --}
+
+<!- Affectation  -!>
 x := (-5) ; 
-y := 777.007 ;
+y := 777.07 ;
+h := 12989 ;
 z := a + x * 7 ; 
 u := 8 ;
+
+<!- Affectation tableau -!>
 B[0] := 7 ;
-B [5] := (x + 2) / (b - 5 +(-4)) ;
+B[1] := 9 ;
+B[2] := 0 ;
+B[3] := ((-7)) ;
+
+<!- Condition -!>
+
 if (a OR b AND 2 + 4) then {
  u := 7 ;
 }else {
  output ("u =" , u) ;
 } 
 
+<!- Affectation tableau -!>
+B [5] := (x + 2) / (b - 5 +(-4)) ;
 
+<!- Boucle do while -!>
 do {
 u := u + 20 ;
 } while (x<100);
 
+<!- Affichage -!>
 output (u);
 
+<!- Boucle for -!>
 for i from 1 to 10 step 2 {
 output (i);
 }
 
+<!- Boucles imbriquées -!>
+for i from 1 to 10 step 2 {
+do {
+output (i);
+} while (x<100);
+}
+
+
+<!- Conditions imbriques -!>
 if ( y > 99) then
 {
   for i from 1 to 10 step 5 {
@@ -50,6 +85,7 @@ output (i) ;
   }
 }
 
+<!- Lecture -!>
 input(Username) ;
 input(a ,b) ;
 

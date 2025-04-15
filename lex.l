@@ -4,6 +4,7 @@
 #include<string.h>
 #include "synt.tab.h"  
 #include "Tslist.h"
+#include "quad.h" 
 
 extern YYSTYPE yylval;
 int num_de_lignes = 1 ;
@@ -155,3 +156,4 @@ output          {col=col+yyleng; printf("mot cle : %s \n",yytext);inserer(yytext
 . {printf("erreur lexicale a la ligne %d \n", num_de_lignes); } 
 
 %%
+
