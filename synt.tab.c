@@ -69,6 +69,8 @@
 
 /* Line 189 of yacc.c  */
 #line 1 "synt.y"
+
+
 #include<stdio.h>
 #include "synt.tab.h"  
 #include <string.h>
@@ -88,7 +90,7 @@ int indice;
 
 
 /* Line 189 of yacc.c  */
-#line 92 "synt.tab.c"
+#line 94 "synt.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -174,16 +176,16 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 18 "synt.y"
+#line 21 "synt.y"
 
-int entier;
-char* str;
-float reel;
+  int entier;
+  char* str;
+  float reel;
 
 
 
 /* Line 214 of yacc.c  */
-#line 187 "synt.tab.c"
+#line 189 "synt.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -195,7 +197,7 @@ float reel;
 
 
 /* Line 264 of yacc.c  */
-#line 199 "synt.tab.c"
+#line 201 "synt.tab.c"
 
 #ifdef short
 # undef short
@@ -474,7 +476,7 @@ static const yytype_uint8 yyprhs[] =
       80,    81,    85,    89,    92,    95,    98,   101,   104,   109,
      113,   117,   121,   125,   129,   133,   136,   138,   140,   142,
      144,   146,   148,   155,   156,   160,   166,   168,   170,   174,
-     178,   188,   193,   194,   198,   202,   205,   209,   213,   215,
+     178,   188,   189,   194,   198,   202,   205,   209,   213,   215,
      217,   219,   221,   223,   225,   227,   237
 };
 
@@ -499,8 +501,8 @@ static const yytype_int8 yyrhs[] =
        4,    67,    28,     5,    -1,    -1,    15,     4,    67,    -1,
       31,    29,    69,    28,     5,    -1,    25,    -1,     4,    -1,
       25,    15,    69,    -1,     4,    15,    69,    -1,    26,    29,
-      72,    28,    27,     8,    61,     9,    71,    -1,    50,     8,
-      61,     9,    -1,    -1,    72,    41,    72,    -1,    72,    42,
+      72,    28,    27,     8,    61,     9,    71,    -1,    -1,    50,
+       8,    61,     9,    -1,    72,    41,    72,    -1,    72,    42,
       72,    -1,    40,    72,    -1,    29,    72,    28,    -1,    64,
       73,    64,    -1,    64,    -1,    36,    -1,    37,    -1,    38,
       -1,    39,    -1,    51,    -1,    43,    -1,    48,     8,    61,
@@ -509,15 +511,15 @@ static const yytype_int8 yyrhs[] =
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,    45,    45,    52,    53,    54,    55,    57,    58,    61,
-      72,    84,    92,    99,   106,   115,   115,   117,   126,   137,
-     143,   143,   148,   156,   156,   156,   156,   156,   157,   170,
-     181,   182,   183,   185,   186,   189,   190,   195,   200,   200,
-     200,   200,   203,   207,   207,   211,   213,   213,   216,   217,
-     221,   223,   223,   226,   227,   228,   229,   230,   231,   234,
-     234,   234,   234,   234,   234,   236,   238
+       0,    54,    54,    61,    62,    63,    64,    67,    72,    79,
+      91,   104,   113,   122,   131,   140,   141,   143,   155,   168,
+     175,   176,   181,   189,   189,   189,   189,   189,   191,   204,
+     217,   218,   219,   220,   221,   227,   228,   234,   236,   237,
+     238,   239,   242,   248,   248,   254,   256,   257,   262,   263,
+     269,   271,   272,   275,   276,   277,   278,   279,   280,   282,
+     282,   282,   282,   282,   282,   284,   286
 };
 #endif
 
@@ -577,7 +579,7 @@ static const yytype_uint8 yyr2[] =
        0,     3,     3,     2,     2,     2,     2,     2,     4,     3,
        3,     3,     3,     3,     3,     2,     1,     1,     1,     1,
        1,     1,     6,     0,     3,     5,     1,     1,     3,     3,
-       9,     4,     0,     3,     3,     2,     3,     3,     1,     1,
+       9,     0,     4,     3,     3,     2,     3,     3,     1,     1,
        1,     1,     1,     1,     1,     9,    11
 };
 
@@ -601,8 +603,8 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,    35,    29,     2,     9,    10,     6,    30,
       56,    31,    32,    34,    33,    57,     0,    53,    54,    43,
        0,    49,    48,    45,     0,     0,    28,    20,    44,    42,
-       0,     0,     0,     0,     0,    52,     0,     0,     0,    50,
-      20,    65,    20,     0,     0,    66,    51
+       0,     0,     0,     0,     0,    51,     0,     0,     0,    50,
+      20,    65,    20,     0,     0,    66,    52
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -1530,202 +1532,223 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 50 "synt.y"
-    {printf("correcte syntaxiquement"); YYACCEPT ;;}
+#line 59 "synt.y"
+    {printf("/******************************* Programme correcte syntaxiquement ***********************************/"); YYACCEPT ;;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 57 "synt.y"
-    {  strcpy(tabl_inter2[cpt2], (yyvsp[(1) - (3)].str)); cpt2 ++; strcpy(tabl_inter[cpt], (yyvsp[(1) - (3)].str)); cpt ++; insererkind((yyvsp[(1) - (3)].str) , 1); ;}
+#line 67 "synt.y"
+    { 
+                                         strcpy(tabl_inter2[cpt2], (yyvsp[(1) - (3)].str)); cpt2 ++; 
+                                         strcpy(tabl_inter[cpt], (yyvsp[(1) - (3)].str)); cpt ++; 
+                                         insererkind((yyvsp[(1) - (3)].str) , 1); 
+                                        ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 58 "synt.y"
-    {  strcpy(tabl_inter2[cpt2], (yyvsp[(1) - (1)].str)); cpt2 ++; strcpy(tabl_inter[cpt], (yyvsp[(1) - (1)].str)); cpt ++;insererkind((yyvsp[(1) - (1)].str) , 1); ;}
+#line 72 "synt.y"
+    {  
+                   strcpy(tabl_inter2[cpt2], (yyvsp[(1) - (1)].str)); cpt2 ++; 
+                   strcpy(tabl_inter[cpt], (yyvsp[(1) - (1)].str)); cpt ++;
+                   insererkind((yyvsp[(1) - (1)].str) , 1); 
+                  ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 62 "synt.y"
-    { int i ;
-        for (i = 0 ; i<cpt; i ++ ){
-          if (rechercheType(tabl_inter[i],0)==0){
-             insererType(tabl_inter[i],(yyvsp[(5) - (8)].str) , 0);
-          insererTailleTableau(tabl_inter[i], (yyvsp[(7) - (8)].entier));
-          }else{
-            printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
-          }
-        }
-        cpt =0 ; ;}
+#line 79 "synt.y"
+    { 
+                      int i ;
+                      for (i = 0 ; i<cpt; i ++ ){
+                        if (rechercheType(tabl_inter[i],0)==0){
+                          insererType(tabl_inter[i],(yyvsp[(5) - (8)].str) , 0);
+                          insererTailleTableau(tabl_inter[i], (yyvsp[(7) - (8)].entier));
+                        }else{
+                          printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
+                        }
+                      }
+                      cpt =0 ; 
+                    ;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 73 "synt.y"
-    { int i ;
-        for (i = 0 ; i<cpt; i ++ ){
-          if (rechercheType(tabl_inter[i],0)==0){
-            insererType(tabl_inter[i],(yyvsp[(5) - (8)].str) , 0);
-          insererTailleTableau(tabl_inter[i], (yyvsp[(7) - (8)].entier));
-          }else{
-            printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
-          }
-        }
-        cpt =0 ; ;}
+#line 91 "synt.y"
+    { 
+                      int i ;
+                      for (i = 0 ; i<cpt; i ++ ){
+                        if (rechercheType(tabl_inter[i],0)==0){
+                          insererType(tabl_inter[i],(yyvsp[(5) - (8)].str) , 0);
+                          insererTailleTableau(tabl_inter[i], (yyvsp[(7) - (8)].entier));
+                        }else{
+                          printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
+                        }
+                      }
+                      cpt =0 ; 
+                    ;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 84 "synt.y"
+#line 104 "synt.y"
     {
-  sauvval= (yyvsp[(1) - (1)].entier); int i ;
-        for (i = 0 ; i<cpt2; i ++ ){
-          
-          insererVal(tabl_inter2[i],sauvval , 0);
-           insererkind(tabl_inter2[i], 1);
-          
-        }
-        cpt2 =0 ; ;}
+                  sauvval= (yyvsp[(1) - (1)].entier);
+                  int i ;
+                  for (i = 0 ; i<cpt2; i ++ ){
+                    insererVal(tabl_inter2[i],sauvval , 0);
+                    insererkind(tabl_inter2[i], 1); 
+                  }
+                  cpt2 =0 ; 
+                ;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 92 "synt.y"
+#line 113 "synt.y"
     {
-  sauvval= (yyvsp[(1) - (1)].entier); int i ;
-        for (i = 0 ; i<cpt2; i ++ ){
-         
-          insererVal(tabl_inter2[i],sauvval , 0);
-            insererkind(tabl_inter2[i], 1);
-        }
-        cpt2 =0 ; ;}
+                  sauvval= (yyvsp[(1) - (1)].entier); 
+                  int i ;
+                  for (i = 0 ; i<cpt2; i ++ ){
+                    insererVal(tabl_inter2[i],sauvval , 0);
+                    insererkind(tabl_inter2[i], 1);
+                  }
+                  cpt2 =0 ; 
+                ;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 99 "synt.y"
+#line 122 "synt.y"
     {
-  sauvval= (yyvsp[(1) - (1)].reel); int i ;
-        for (i = 0 ; i<cpt2; i ++ ){
-          
-          insererVal(tabl_inter2[i],sauvval , 0);
-            insererkind(tabl_inter2[i], 1);
-        }
-        cpt2 =0 ; ;}
+                  sauvval= (yyvsp[(1) - (1)].reel); 
+                  int i ;
+                  for (i = 0 ; i<cpt2; i ++ ){
+                    insererVal(tabl_inter2[i],sauvval , 0);
+                    insererkind(tabl_inter2[i], 1);
+                  }
+                  cpt2 =0 ; 
+                ;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 106 "synt.y"
+#line 131 "synt.y"
     {
-  sauvval= (yyvsp[(1) - (1)].reel); int i ;
-        for (i = 0 ; i<cpt2; i ++ ){
-          
-          insererVal(tabl_inter2[i],sauvval , 0);
-          insererkind(tabl_inter2[i], 1);
-        }
-        cpt2 =0 ; ;}
+                  sauvval= (yyvsp[(1) - (1)].reel); int i ;
+                  for (i = 0 ; i<cpt2; i ++ ){
+                    insererVal(tabl_inter2[i],sauvval , 0);
+                    insererkind(tabl_inter2[i], 1);
+                  }
+                  cpt2 =0 ; 
+                ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 115 "synt.y"
+#line 140 "synt.y"
     { strcpy(tabl_inter[cpt], (yyvsp[(1) - (3)].str)); cpt ++; ;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 115 "synt.y"
+#line 141 "synt.y"
     { strcpy(tabl_inter[cpt], (yyvsp[(1) - (1)].str)); cpt ++;  ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 117 "synt.y"
-    { strcpy(sauvtype , (yyvsp[(1) - (1)].str)) ; int i ;
-        for (i = 0 ; i<cpt; i ++ ){
-          if (rechercheType(tabl_inter[i],0)==0){
-          insererType(tabl_inter[i],sauvtype , 0);
-          }else{
-            printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
-          }
-        }
-         cpt=0;;}
+#line 143 "synt.y"
+    { 
+             strcpy(sauvtype , (yyvsp[(1) - (1)].str)) ;
+              int i ;
+              for (i = 0 ; i<cpt; i ++ ){
+                if (rechercheType(tabl_inter[i],0)==0){
+                  insererType(tabl_inter[i],sauvtype , 0);
+                }else{
+                  printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
+                }
+              }
+              cpt=0;
+            ;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 126 "synt.y"
-    {strcpy(sauvtype , (yyvsp[(1) - (1)].str)) ; int i ;
-        for (i = 0 ; i<cpt; i ++ ){
-          if (rechercheType(tabl_inter[i],0)==0){
-          insererType(tabl_inter[i],sauvtype , 0);
-          }else{
-            printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
-          }
-        }
-        cpt=0; ;}
+#line 155 "synt.y"
+    {
+              strcpy(sauvtype , (yyvsp[(1) - (1)].str)) ; 
+              int i ;
+              for (i = 0 ; i<cpt; i ++ ){
+                if (rechercheType(tabl_inter[i],0)==0){
+                  insererType(tabl_inter[i],sauvtype , 0);
+                }else{
+                  printf("erreur semantique double declaration de : %s a la ligne %d la colonne %d \n",tabl_inter[i],num_de_lignes , col);
+                }
+              }
+              cpt=0;
+             ;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 137 "synt.y"
-    {strcpy(sauv , (yyvsp[(1) - (1)].str)); (yyval.str) = (yyvsp[(1) - (1)].str) ; 
-if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (1)].str),num_de_lignes , col);
-}
-;}
+#line 168 "synt.y"
+    {
+            strcpy(sauv , (yyvsp[(1) - (1)].str)); (yyval.str) = (yyvsp[(1) - (1)].str) ; 
+            if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
+              printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (1)].str),num_de_lignes , col);
+            }
+          ;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 143 "synt.y"
-    {  if (rechercheType((yyvsp[(1) - (3)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (3)].str),num_de_lignes , col);
-} 
-
-;}
+#line 176 "synt.y"
+    {  
+                                                if (rechercheType((yyvsp[(1) - (3)].str),0)== 0){
+                                                  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (3)].str),num_de_lignes , col);
+                                                } 
+                                              ;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 148 "synt.y"
+#line 181 "synt.y"
     { 
-
-  if (rechercheType((yyvsp[(1) - (3)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (3)].str),num_de_lignes , col);
-  if ( recherchertailleTableau ((yyvsp[(1) - (3)].str))< indicetab){
-    printf("depasement de taille du tableau de %s",(yyvsp[(1) - (3)].str));
-  }
-} ;}
+                                                if (rechercheType((yyvsp[(1) - (3)].str),0)== 0){
+                                                 printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (3)].str),num_de_lignes , col);
+                                                  if ( recherchertailleTableau ((yyvsp[(1) - (3)].str))< indicetab){
+                                                    printf("depasement de taille du tableau de %s",(yyvsp[(1) - (3)].str));
+                                                  }
+                                                } 
+                                              ;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 157 "synt.y"
+#line 191 "synt.y"
     {
                   indice= (yyvsp[(2) - (4)].entier) ; 
                   (yyval.reel)= (yyvsp[(4) - (4)].reel) ; 
                     if (strcmp(recherchertype(sauv), checkNumberType((yyvsp[(4) - (4)].reel))) == 0   ) { 
-                      if (retournerkind(sauv)==2) {
+                      if (kindVal(sauv)==2) {
                         if (indice < recherchertailleTableau(sauv)){   
                             insererValeurTableau ( sauv,indice, (yyvsp[(4) - (4)].reel) );
                         }else{
@@ -1739,150 +1762,162 @@ if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 170 "synt.y"
+#line 204 "synt.y"
     {
-   if (strcmp(recherchertype(sauv), checkNumberType((yyvsp[(2) - (3)].reel))) != 0   ) { 
-     printf (" erreur semantique non compatibilite de type de la variable %s a la ligne %d la colonne %d \n", sauv ,num_de_lignes , col) ;}
-   if (kindVal(sauv) == 1) {
-    printf("erreur semantique modification de valeur de constante %s à la ligne %d la colonne %d \n", sauv, num_de_lignes , col);
-   }else{
-     insererVal (sauv, (yyvsp[(2) - (3)].reel) , 0) ;
-   }
-    (yyval.reel) = (yyvsp[(2) - (3)].reel) ;;}
+                  if (strcmp(recherchertype(sauv), checkNumberType((yyvsp[(2) - (3)].reel))) != 0   ) { 
+                    printf (" erreur semantique non compatibilite de type de la variable %s a la ligne %d la colonne %d \n", sauv ,num_de_lignes , col) ;
+                  }
+                  if (kindVal(sauv) == 1) {
+                    printf("erreur semantique modification de valeur de constante %s à la ligne %d la colonne %d \n", sauv, num_de_lignes , col);
+                  }else{
+                    insererVal (sauv, (yyvsp[(2) - (3)].reel) , 0) ;
+                  }
+                  (yyval.reel) = (yyvsp[(2) - (3)].reel) ;
+                ;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 181 "synt.y"
+#line 217 "synt.y"
     { (yyval.reel) = (yyvsp[(2) - (3)].reel) ;;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 182 "synt.y"
+#line 218 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (3)].reel) + (yyvsp[(3) - (3)].reel) ; ;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 183 "synt.y"
-    { 
-(yyval.reel) = (yyvsp[(1) - (3)].reel) - (yyvsp[(3) - (3)].reel) ; ;;}
+#line 219 "synt.y"
+    { (yyval.reel) = (yyvsp[(1) - (3)].reel) - (yyvsp[(3) - (3)].reel) ;;}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 185 "synt.y"
+#line 220 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (3)].reel) * (yyvsp[(3) - (3)].reel) ;;}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 186 "synt.y"
+#line 221 "synt.y"
     {
-   if ((yyvsp[(3) - (3)].reel) == 0) {printf("erreur semantique division par zero a la ligne %d la colonne %d \n", num_de_lignes ,col);}
- (yyval.reel) = (yyvsp[(1) - (3)].reel) / (yyvsp[(3) - (3)].reel) ;;}
+                                                      if ((yyvsp[(3) - (3)].reel) == 0) {
+                                                        printf("erreur semantique division par zero a la ligne %d la colonne %d \n", num_de_lignes ,col);
+                                                      }
+                                                      (yyval.reel) = (yyvsp[(1) - (3)].reel) / (yyvsp[(3) - (3)].reel) ;
+                                                    ;}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 189 "synt.y"
+#line 227 "synt.y"
     { (yyval.reel) = -(yyvsp[(2) - (2)].reel) ;;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 190 "synt.y"
+#line 228 "synt.y"
     { 
-  (yyval.reel) = rechercherval((yyvsp[(1) - (1)].str));
-  if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (1)].str),num_de_lignes , col);
-  
-} ;}
+                  (yyval.reel) = rechercherval((yyvsp[(1) - (1)].str));
+                  if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
+                    printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (1)].str),num_de_lignes , col);
+                  } 
+                ;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 195 "synt.y"
+#line 234 "synt.y"
     {  (yyval.reel) = (yyvsp[(1) - (1)].reel) ; ;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 200 "synt.y"
+#line 236 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].entier) ;;}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 200 "synt.y"
+#line 237 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].entier) ;;}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 200 "synt.y"
+#line 238 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].reel) ;;}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 200 "synt.y"
+#line 239 "synt.y"
     { (yyval.reel) = (yyvsp[(1) - (1)].reel) ;;}
     break;
 
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 203 "synt.y"
-    { if (rechercheType((yyvsp[(3) - (6)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(3) - (6)].str),num_de_lignes , col);
-} ;}
+#line 242 "synt.y"
+    { 
+                                                                        if (rechercheType((yyvsp[(3) - (6)].str),0)== 0){
+                                                                          printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(3) - (6)].str),num_de_lignes , col);
+                                                                        }
+                                                                     ;}
     break;
 
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 207 "synt.y"
-    { if (rechercheType((yyvsp[(2) - (3)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(2) - (3)].str),num_de_lignes , col);
-} ;}
+#line 248 "synt.y"
+    { 
+                                   if (rechercheType((yyvsp[(2) - (3)].str),0)== 0){
+                                     printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(2) - (3)].str),num_de_lignes , col);
+                                    }
+                                  ;}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 213 "synt.y"
-    { if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (1)].str),num_de_lignes ,col);
-} ;}
+#line 257 "synt.y"
+    { 
+                  if (rechercheType((yyvsp[(1) - (1)].str),0)== 0){
+                   printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (1)].str),num_de_lignes ,col);
+                  } 
+                ;}
     break;
 
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 217 "synt.y"
-    { if (rechercheType((yyvsp[(1) - (3)].str),0)== 0){
-  printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (3)].str),num_de_lignes , col);
-} ;}
+#line 263 "synt.y"
+    { 
+                                     if (rechercheType((yyvsp[(1) - (3)].str),0)== 0){
+                                       printf ("erreur semantique non declaration de : %s a la ligne %d la colonne %d \n",(yyvsp[(1) - (3)].str),num_de_lignes , col);
+                                      }
+                                    ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1886 "synt.tab.c"
+#line 1921 "synt.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2094,17 +2129,17 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 242 "synt.y"
+#line 290 "synt.y"
 
-int main() {
-    
-    yyparse();
-    afficher();
+int main() { 
+  yyparse();
+  afficher();
 }
-yywrap()
-{return 1;}
-int yyerror(char *msg)
-{  
-    printf(" Erreur syntaxique a la ligne %d la colonne %d lentite %s " , num_de_lignes , col,  yytext);}
+
+yywrap(){return 1;}
+
+int yyerror(char *msg){
+  printf(" Erreur syntaxique a la ligne %d la colonne %d lentite %s " , num_de_lignes , col,  yytext);
+}
     
 

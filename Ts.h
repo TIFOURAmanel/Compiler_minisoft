@@ -1,20 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/*************************** declaration  ******************************** */
 typedef struct ElementTableau {
     int index;     //  l'index de tableau
     double value;   // la valeur inserer pour cet index
-    struct ElementTableau *next;
+    struct ElementTableau *next; // prochain element
 } ElemenTableau;
+
 typedef struct {
     int state; 
     char name[20];
     char code[20];
     char type[20];
     double val;
-    int Kind ;// 0 si valeur 1 si constante 2 si tableau 
+    int Kind ;         // 0 si valeur 1 si constante 2 si tableau 
     int tailletableau; //pour ajouter la taille du tableau si scest un tableau 
-    ElemenTableau* valeurTableau ;
+    ElemenTableau* valeurTableau ;//les valeur de chaque tableau 
 }TS_IDF ;
 
 typedef struct
@@ -23,8 +26,10 @@ typedef struct
     char nomEntite[20];
     char Code[20];
 } TS_MCS;
+
 TS_IDF TIDF[200];
 TS_MCS TSS[50], TSM[50];
+
 /***************************fonction dinitialisation ******************************** */
 
 void initialization(){
@@ -38,6 +43,7 @@ void initialization(){
     TSM[i].state=0;
     }
 }
+
 /******************************* fonction d'affichage ***********************************/
 void afficher() {
     int i;
@@ -131,14 +137,12 @@ void afficher() {
 }
 
 
-// Global counters for each table
+
 int CpTIDF = 0;  // Counter for TIDF table
 int CpTSS = 0;   // Counter for TSS table
 int CpTSM = 0;   // Counter for TSM table
 
-/* The search function: looks for an entity in the specified table
-   Returns its position if found, otherwise -1
-   tableType: 0 for TIDF, 1 for TSS, 2 for TSM */
+/******************************* fonction de recherche ***********************************/
 int recherche(char entite[], int tableType)
 {
     int i = 0;
@@ -176,7 +180,7 @@ int recherche(char entite[], int tableType)
     return -1;
 }
 
-// Function to insert entities into the appropriate table
+/******************************* fonction d'insertion ***********************************/
 void inserer(char entite[], char code[],int tableType)
 {
     // Check if entity already exists
@@ -206,7 +210,7 @@ void inserer(char entite[], char code[],int tableType)
     }
 }
 
-// Function to insert/update the type of an entity
+/******************************* fonction d'insertion de Type ***********************************/
 void insererType(char entite[], char type[], int tableType)
 {
     if (tableType != 0) return; // Only TIDF has type field
@@ -217,7 +221,7 @@ void insererType(char entite[], char type[], int tableType)
     }
 }
 
-// Function to insert/update the value of an entity
+/******************************* fonction  d'insertion  des valeurs normal  ***********************************/
 void insererVal(char entite[], double val, int tableType)
 {
     if (tableType != 0) return; // Only TIDF has val field
@@ -230,7 +234,8 @@ void insererVal(char entite[], double val, int tableType)
       
 }
 
-// Function to check if an entity has a type
+/******************************* fonction  de recherche de type : si il existe ou pas  ***********************************/
+
 int rechercheType(char entite[], int tableType)
 {
     if (tableType != 0) return -1; // Only TIDF has type field
@@ -243,6 +248,8 @@ int rechercheType(char entite[], int tableType)
     else 
         return 1; // Entity exists and has a type
 }
+/******************************* fonction  d'insertion de tableau '  ***********************************/
+
 void insererTailleTableau(char entite[], int taille) {
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
@@ -251,6 +258,9 @@ void insererTailleTableau(char entite[], int taille) {
         TIDF[posEntite].valeurTableau = NULL;  
     }
 }
+
+/******************************* fonction  de recherche de kind  ***********************************/
+
 int kindVal(char entite[]) {
     int pos = recherche(entite, 0); // tableType = 0 pour TIDF
     if (pos != -1) {
@@ -258,12 +268,16 @@ int kindVal(char entite[]) {
     }
     return -1; // identificateur non trouvé
 }
+
+/******************************* fonction  d'insertion de kind  ***********************************/
 void insererkind(char entite[], int KIND) {
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
         TIDF[posEntite].Kind= KIND;
     }
 }
+
+/******************************* fonction  de recherche de taille tableau ***********************************/
 
 int recherchertailleTableau (char entite[]){
     int posEntite = recherche(entite, 0); // 0 pour TIDF
@@ -272,6 +286,8 @@ int recherchertailleTableau (char entite[]){
     }
 }
 
+/******************************* fonction  de recherche de valeur d'entite ***********************************/
+
 int rechercherval (char entite[]){
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
@@ -279,21 +295,22 @@ int rechercherval (char entite[]){
         
     }
 }
-
+/******************************* fonction  de recherche de type : retourne le type ***********************************/
 char* recherchertype (char entite[]){
     int posEntite = recherche(entite, 0); // 0 pour TIDF
     if (posEntite != -1) {
        return TIDF[posEntite].type;
     }
 }
-
- char* checkNumberType(double num) {
+/******************************* fonction  qui retourne le type d'un nombre en entrer  ***********************************/
+char* checkNumberType(double num) {
     if((num == (long long)num)) {
     return  "Int";
 } else {
     return "Float" ;
 }
 }
+/******************************* fonction  d'insertion des valeurs dans le tableau ***********************************/
 void insererValeurTableau(char* entite, int index, double valeur) {
     int position = recherche(entite, 0);
     if (position != -1) {
@@ -338,6 +355,7 @@ void insererValeurTableau(char* entite, int index, double valeur) {
         printf("Error: Identifier '%s' not found for array insertion.\n", entite);
     }
 }
+/******************************* fonction  de recherche des valeur dans un type tableau  ***********************************/
 double rechercherDansTableau(char* entite, int index) {
     int position = recherche(entite, 0);
     if (position != 0) {
@@ -363,10 +381,4 @@ double rechercherDansTableau(char* entite, int index) {
     }
     return 0;  // Return default value or error code
 }
-int retournerkind (char entite[]){
-    int positon = (int) recherche(entite,0 );
-    if (positon!=-1){
-        return TIDF[positon].Kind;
-    } 
 
-}

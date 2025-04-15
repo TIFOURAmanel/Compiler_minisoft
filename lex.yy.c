@@ -758,7 +758,7 @@ YY_RULE_SETUP
 {
     num_de_lignes++ ; 
     col = 1;
-    }
+}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
@@ -879,202 +879,211 @@ case 25:
 YY_RULE_SETUP
 #line 63 "lex.l"
 { 
-    col=col+yyleng;
-    printf("un commentaire plusieurs lignes \n");
-    char *varchar = strdup(yytext);
-    int j;  
-    for (j = 0; varchar[j] != '\0'; j++) { 
-        if (varchar[j] == '\n') {
-            num_de_lignes++;
-        }
-    }
-    
-}
+                                col=col+yyleng;
+                                printf("un commentaire plusieurs lignes \n");
+                                char *varchar = strdup(yytext);
+                                int j;  
+                                for (j = 0; varchar[j] != '\0'; j++) { 
+                                    if (varchar[j] == '\n') {
+                                        num_de_lignes++;
+                                    }
+                                }
+                            }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 75 "lex.l"
-{ col=col+yyleng; 
-    if (yyleng > 14) 
-    {printf ("erreur lexicale : le IDF depasse 14 caracteres \n"); }
-    else{
-    printf("idf : %s \n",yytext);
-    yylval.str=strdup(yytext);
-    inserer(yytext, "IDF", 0);
-    return idf ;}
-} 
+#line 74 "lex.l"
+{ 
+        col=col+yyleng; 
+        if (yyleng > 14) {
+            printf ("erreur lexicale : le IDF depasse 14 caracteres \n"); 
+        }else{
+        printf("idf : %s \n",yytext);
+        yylval.str=strdup(yytext);
+        inserer(yytext, "IDF", 0);
+        return idf ;}
+    } 
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 84 "lex.l"
-{col=col+yyleng; printf("entier positif\n"); yylval.entier=atoi(yytext);  return entier_pos ;}
+#line 85 "lex.l"
+{
+                     col=col+yyleng;
+                     printf("entier positif\n"); 
+                     yylval.entier=atoi(yytext);  
+                     return entier_pos ;
+                    }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 86 "lex.l"
+#line 92 "lex.l"
 {
-        col=col+yyleng;
-        char *varstr=strdup(yytext+1);
-        varstr[strlen(varstr)-1]='\0';
-        int valeur= atoi(varstr);
-            if (valeur >= -32768 && valeur <= 32767) {
-        if (valeur < 0) {
-            printf("entier signe negatif \n"); yylval.entier=valeur;  return entier_neg ;
-        } else {
-            printf("entier  signe positif \n"); yylval.entier=valeur; return entier_neg ;
-        }
-    } else {
-        printf("erreur : le nombre n'est pas dans la plage des valeurs\n");
-    }
-}
+                col=col+yyleng;
+                char *varstr=strdup(yytext+1);
+                varstr[strlen(varstr)-1]='\0';
+                int valeur= atoi(varstr);
+                if (valeur >= -32768 && valeur <= 32767) {
+                    if (valeur < 0) {
+                        printf("entier signe negatif \n"); yylval.entier=valeur;  return entier_neg ;
+                    } else {
+                        printf("entier  signe positif \n"); yylval.entier=valeur; return entier_neg ;
+                    }
+                } else {
+                    printf("erreur : le nombre n'est pas dans la plage des valeurs\n");
+                }
+            }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 103 "lex.l"
-{col=col+yyleng; printf("reel non signe positif\n"); yylval.reel=atof(yytext); return reel_pos ;}
+#line 109 "lex.l"
+{
+                  col=col+yyleng; 
+                  printf("reel non signe positif\n"); 
+                  yylval.reel=atof(yytext); 
+                  return reel_pos ;
+                }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 104 "lex.l"
+#line 115 "lex.l"
 {
         col=col+yyleng;
         char *varstr = strdup(yytext+ 1); 
         varstr[strlen(varstr) - 1] = '\0';
         double valeur = strtod(varstr, NULL);
-
         if (valeur < 0) {
             printf("reel signe negatif\n"); yylval.reel=valeur; return reel_neg ; 
         } else {
             printf("reel signe positif \n"); yylval.reel=valeur ; return reel_pos ;
         }
-}
+    }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 117 "lex.l"
+#line 127 "lex.l"
 {col++; printf("operateur : negation \n" );inserer(yytext, "Separateur ", 1); return neg ;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 118 "lex.l"
+#line 128 "lex.l"
 {col++; printf("pvg\n");inserer(yytext, "Separateur ", 1); return pnt_virgul ;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 119 "lex.l"
+#line 129 "lex.l"
 {col++; ("deux points \n");inserer(yytext, "Separateur ", 1); return deux_pnts ;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 120 "lex.l"
+#line 130 "lex.l"
 {col++; printf("le vergule \n");inserer(yytext, "Separateur ", 1); return virgul ;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 121 "lex.l"
+#line 131 "lex.l"
 {col++; printf("parenthese_ouvrante \n");inserer(yytext, "Separateur ", 1); return parenthese_ouvr ;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 122 "lex.l"
+#line 132 "lex.l"
 {col++; printf("parenthese_fermante \n"); inserer(yytext, "Separateur ", 1); return parenthese_ferm ;}  
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 123 "lex.l"
+#line 133 "lex.l"
 {col++; printf("accolade_ouvrante \n"); inserer(yytext, "Separateur ", 1); return accolade_ouvr ;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 124 "lex.l"
+#line 134 "lex.l"
 {col++; printf("accolade_fermante \n"); inserer(yytext, "Separateur ", 1); return accolade_ferm ;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 125 "lex.l"
+#line 135 "lex.l"
 {col++; printf("soustract \n"); inserer(yytext, "Separateur ", 1); return soustract ;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 126 "lex.l"
+#line 136 "lex.l"
 {col++; printf("addition \n"); inserer(yytext, "Separateur ", 1); return add ;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 127 "lex.l"
+#line 137 "lex.l"
 {col++; printf("multiplication \n"); inserer(yytext, "Separateur ", 1); return multipl ;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 128 "lex.l"
+#line 138 "lex.l"
 {col++; printf("division \n"); inserer(yytext, "Separateur ", 1); return division ;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 129 "lex.l"
+#line 139 "lex.l"
 {col=col+2; printf("affectation \n"); inserer(yytext, "Separateur ", 1); return affect ;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 130 "lex.l"
+#line 140 "lex.l"
 {col++; printf("corechets ouvrante \n"); inserer(yytext, "Separateur ", 1); return corechet_ouvr ;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 131 "lex.l"
+#line 141 "lex.l"
 {col++; printf("corechets fermente \n"); inserer(yytext, "Separateur ", 1); return corechet_ferm ;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 132 "lex.l"
+#line 142 "lex.l"
 {col++; printf("egale\n"); inserer(yytext, "Separateur ", 1); return egal ;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 134 "lex.l"
+#line 144 "lex.l"
 {col++; printf("inferieur \n"); inserer(yytext, "Separateur ", 1); return inf ;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 135 "lex.l"
+#line 145 "lex.l"
 {col++; printf("superieur \n"); inserer(yytext, "Separateur ", 1); return sup ;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 136 "lex.l"
+#line 146 "lex.l"
 {col=col+2; printf("superieur_ou_egale \n"); inserer(yytext, "Separateur ", 1); return sup_ou_egal ;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 137 "lex.l"
+#line 147 "lex.l"
 {col=col+2; printf("inferieur_ou_egae \n"); inserer(yytext, "Separateur ", 1); return inf_ou_egal ;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 138 "lex.l"
+#line 148 "lex.l"
 {col=col+2; printf("egale \n"); inserer(yytext, "Separateur ", 1); return identiq ;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 139 "lex.l"
+#line 149 "lex.l"
 {col=col+2; printf("different_de \n"); inserer(yytext, "Separateur ", 1); return diff ;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 141 "lex.l"
+#line 151 "lex.l"
 {col++; printf("espace \n");}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 145 "lex.l"
+#line 155 "lex.l"
 {printf("erreur lexicale a la ligne %d \n", num_de_lignes); } 
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 147 "lex.l"
+#line 157 "lex.l"
 ECHO;
 	YY_BREAK
-#line 1078 "lex.yy.c"
+#line 1087 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1960,5 +1969,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 147 "lex.l"
+#line 157 "lex.l"
 
