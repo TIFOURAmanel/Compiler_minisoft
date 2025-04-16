@@ -15,7 +15,7 @@ double sauvval;
 int indicetab; 
 int indice; 
 
-int qc=0;
+int quad_counter=0;
 
 %}
 
@@ -61,7 +61,7 @@ DEBUT : MainPrgm idf pnt_virgul
 DECLARATION_LIST :
                   |let VARIABLE deux_pnts TYPE1 pnt_virgul DECLARATION_LIST 
                   |DECLARATION_Tableau pnt_virgul  DECLARATION_LIST
-                  | constante VARIABLEConst deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
+                  |constante VARIABLEConst deux_pnts TYPE1 egal VALEUR pnt_virgul DECLARATION_LIST ;
 
 VARIABLEConst :
                idf virgul VARIABLEConst { 
@@ -272,7 +272,8 @@ OPERATEUR_COND : inf | sup | inf_ou_egal | sup_ou_egal | identiq | diff ;
 
 LOOP_DO : boucle_do accolade_ouvr INSTRUCTIONS accolade_ferm boucle_while parenthese_ouvr EXPRESSION_COND parenthese_ferm pnt_virgul ;
 
-LOOP_FOR : boucle_for IDFS from entier_pos to entier_pos step entier_pos accolade_ouvr INSTRUCTIONS accolade_ferm  ; 
+LOOP_FOR : boucle_for IDFS from entier_pos to entier_pos step entier_pos accolade_ouvr INSTRUCTIONS accolade_ferm ;
+
 
 
 
@@ -281,6 +282,7 @@ int main() {
   initialization(); 
   yyparse();
   afficher();
+  /*afficher_Quadr();*/
 }
 
 yywrap(){return 1;}

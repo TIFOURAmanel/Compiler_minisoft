@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -12,36 +11,52 @@ typedef struct{
 }qdr;
 
 
-qdr quad[1000];
+qdr quad_table[1000];
+int label_counter = 0;
+int temp_counter = 0;
+extern int quad_counter;
 
-extern int qc;
-
-void quadr(char opr[],char op1[],char op2[],char res[])
+void creerQuadr(char opr[],char op1[],char op2[],char res[])
 {
-	strcpy(quad[qc].oper,opr);
-	strcpy(quad[qc].op1,op1);
-	strcpy(quad[qc].op2,op2);
-	strcpy(quad[qc].res,res);
-  qc++;
+  strcpy(quad_table[quad_counter].oper,opr);
+  strcpy(quad_table[quad_counter].op1,op1);
+  strcpy(quad_table[quad_counter].op2,op2);
+  strcpy(quad_table[quad_counter].res,res);
+  quad_counter++;
 }
 
-void updateQuad(int num_quad, int colon_quad, char val [])
+void updateQuad(int num_quad, int colon_quad, const char val [])
 {
-  if (colon_quad==0) strcpy(quad[num_quad].oper,val);
-  else if (colon_quad==1) strcpy(quad[num_quad].op1,val);
-          else if (colon_quad==2) strcpy(quad[num_quad].op2,val);
-                    else if (colon_quad==3) strcpy(quad[num_quad].res,val);
+  if (colon_quad==0) strcpy(quad_table[num_quad].oper,val);
+  else if (colon_quad==1) strcpy(quad_table[num_quad].op1,val);
+          else if (colon_quad==2) strcpy(quad_table[num_quad].op2,val);
+                    else if (colon_quad==3) strcpy(quad_table[num_quad].res,val);
 }
 
 
-void afficher_qdr()
+void afficher_Quadr()
 {
   printf("*********************Les Quadruplets***********************\n");
   printf("____________________________________________________________\n");
   int i;
-  for(i=0;i<qc;i++)
+  for(i=0;i<quad_counter;i++)
   {
-  printf("\n %d - ( %s  ,  %s  ,  %s  ,  %s )",i,quad[i].oper,quad[i].op1,quad[i].op2,quad[i].res); 
+  printf("\n %d - ( %s  ,  %s  ,  %s  ,  %s )",i,quad_table[i].oper,quad_table[i].op1,quad_table[i].op2,quad_table[i].res); 
   printf("\n--------------------------------------------------------\n");
   }
+}
+
+
+void branchement(int quad_index, const char *adress) {
+    if (quad_index < 0 || quad_index >= quad_counter) {
+        fprintf(stderr, "Erreur: index de quadruples invalide %d\n", quad_index);
+        return;
+    }
+    updateQuad(quad_index, 3, adress );
+}
+
+char* int_to_str(int val) {
+    char* buffer = malloc(12); 
+    sprintf(buffer, "%d", val);
+    return buffer;
 }

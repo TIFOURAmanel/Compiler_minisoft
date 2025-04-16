@@ -398,14 +398,6 @@ void insererValeurTableau(char* entite, int index, double valeur) {
     TS_IDF* current = TIDF_head;
     while (current != NULL) {
         if (strcmp(current->name, entite) == 0) {
-            /*
-            if (current->Kind == 2) {
-                if (index < 0 || index >= current->tailletableau) {
-                    printf("Erreur Semantique: Indice %d est hors limites pour le tableau '%s' (taille definie: %d).\n",
-                           index, entite, current->tailletableau);
-                    return;
-                }
-            */
 
                 ElemenTableau *elem = current->valeurTableau;
                 while (elem != NULL) {
@@ -423,10 +415,6 @@ void insererValeurTableau(char* entite, int index, double valeur) {
                 newElement->next = current->valeurTableau;
                 current->valeurTableau = newElement;
 
-            /*} else {
-                printf("Warning: '%s' is not an array (Kind = %d).\n", entite, current->Kind);
-            } 
-                */
             return;
         }
         current = current->next;

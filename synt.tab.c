@@ -86,7 +86,7 @@ double sauvval;
 int indicetab; 
 int indice; 
 
-int qc=0;
+int quad_counter=0;
 
 
 
@@ -2089,12 +2089,13 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 279 "synt.y"
+#line 280 "synt.y"
 
 int main() {
   initialization(); 
   yyparse();
   afficher();
+  /*afficher_Quadr();*/
 }
 
 yywrap(){return 1;}
