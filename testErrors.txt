@@ -20,6 +20,7 @@ a := 2 ;                             <!- erreur changement de val de constante  
 
 B [20] := 344 ;                      <!- erreur depassement de taille tableau -!>
 
+B [-9] := 344 ;                      <!- erreur indice negative -!>
 
 for i from 1 to 10 step 2 {          <!- erreur non declaration  -!>
 x := 1;

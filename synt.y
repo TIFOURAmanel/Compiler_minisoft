@@ -183,16 +183,20 @@ INSTRUCTIONS :
                                               }
             | INPUT INSTRUCTIONS | OUTPUT INSTRUCTIONS | CONDITION INSTRUCTIONS | LOOP_DO INSTRUCTIONS | LOOP_FOR INSTRUCTIONS ;
 
-AFFECTATION_TAB : corechet_ouvr entier_pos corechet_ferm AFFECTATION_NOR {
+AFFECTATION_TAB : corechet_ouvr VALEUR corechet_ferm AFFECTATION_NOR {
                   indice= $2 ; 
                   $$= $4 ; 
                     if (strcmp(recherchertype(sauv), checkNumberType($4)) == 0   ) { 
                       if (kindVal(sauv)==2) {
-                        if (indice < recherchertailleTableau(sauv)){   
-                            insererValeurTableau ( sauv,indice, $4 );
+                        if (indice > 0){
+                          if (indice < recherchertailleTableau(sauv)){   
+                              insererValeurTableau ( sauv,indice, $4 );
+                          }else{
+                            printf("erreur semantique : depasement de taille de tableau : %s à la ligne %d la colonne %d \n", sauv ,num_de_lignes , col);
+                          }
                         }else{
-                          printf("erreur semantique : depasement de taille de tableau : %s à la ligne %d la colonne %d \n", sauv ,num_de_lignes , col);
-                        }
+                            printf("erreur semantique : indice  negative : à la ligne %d la colonne %d \n",num_de_lignes , col);
+                        }  
                       }
                     }  
                   };
