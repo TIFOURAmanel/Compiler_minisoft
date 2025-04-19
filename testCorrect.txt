@@ -43,7 +43,7 @@ B[3] := ((-7)) ;
 
 <!- Condition -!>
 
-if (a OR b AND 2 + 4) then {
+if ((a + 1 > z ) OR b AND (z < 4)) then {
  u := 7 ;
 }else {
  output ("u =" , u) ;

@@ -2,7 +2,7 @@ MainPrgm Minisoft ;
 
 Var 
 let x : Int ;
-let x : Int ;                       <!- erreur double declaration -!>
+let u : Float ;                       <!- erreur double declaration -!>
 
 
 @define Const a ,b  : Int = 10 ;
@@ -13,14 +13,16 @@ BeginPg
 {
   {-- Partie Instructions 
   
-   --}
-x := (-5.8) ;                        <!- erreur non compatibilite de type -!>
-
+  
+  --}
+x := (-5.8) ;   
+                     <!- erreur non compatibilite de type -!>
+x := u + aaaa/g  ;
 a := 2 ;                             <!- erreur changement de val de constante  -!>
 
-B [20] := 344 ;                      <!- erreur depassement de taille tableau -!>
+B [10] := 344 ;                      <!- erreur depassement de taille tableau -!>
 
-B [-9] := 344 ;                      <!- erreur indice negative -!>
+B [(-9)] := 344 ;                      <!- erreur indice negative -!>
 
 for i from 1 to 10 step 2 {          <!- erreur non declaration  -!>
 x := 1;
